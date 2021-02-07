@@ -33,6 +33,9 @@ public class Rank_1 extends javax.swing.JFrame {
     int mouseY;
     Lobby lobby = new Lobby();
     public String nicknameValue = lobby.name;
+    String Subjectm = "등수#닉네임#시간";
+        
+   
     public Rank_1() {
         initComponents();
         NickName.setText(nicknameValue + "님 포인트는" + lobby.point +"점입니다");
@@ -74,7 +77,7 @@ public class Rank_1 extends javax.swing.JFrame {
 
         LoginLabel.setFont(new java.awt.Font("나눔스퀘어라운드 Regular", 1, 36)); // NOI18N
         LoginLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        LoginLabel.setText("가위바위보 랭크");
+        LoginLabel.setText("1 TO 50 랭킹");
         MainPanel.add(LoginLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 280, -1));
 
         RegisterButton.setBackground(new java.awt.Color(0, 84, 140));
@@ -302,16 +305,21 @@ public class Rank_1 extends javax.swing.JFrame {
                  if(count <rankVisibleValue) {
                    count++;
                  }
+               
         }
             Object row[][] =  new String[count][count];
-            Object row2 = new String[count][count];
             
             for(int i=0;i<count;i++) {
-            if(count<=rankVisibleValue) {
+            if(count >2) {
+             if(count<=rankVisibleValue) {
               row[i][0] =  String.valueOf(i+1 + "등");  // 아이디 칸 채우기
               row[i][1] = ids[i];    // 아이디 칸 채우기
               row[i][2] = points[i];   // 포인트 칸 채우기
             }
+           }  else {
+           row[i][0] = "3명이상 랭킹등록시 표시됩니다";
+           Subjectm = "3명이상 등록시 표시";
+         }
             
             }
         
@@ -323,9 +331,9 @@ public class Rank_1 extends javax.swing.JFrame {
                
            
             //   String[][] idAndPoint = {{"1","2"},{"2","3"}};
-             String[] Subject = {"등수","닉네임","포인트",};   
           //  System.out.println(Arrays.toString(idAndPoint));
 //               System.out.println(Arrays.toString(point));
+                 String[] Subject = Subjectm.split("#");   
                   DefaultTableModel model = new DefaultTableModel(row,Subject);
                                     RankTable.setModel(model);
              

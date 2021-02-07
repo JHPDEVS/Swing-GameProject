@@ -73,7 +73,7 @@
               <Font name="&#xb098;&#xb214;&#xc2a4;&#xd018;&#xc5b4;&#xb77c;&#xc6b4;&#xb4dc; Regular" size="36" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="&#xac00;&#xc704;&#xbc14;&#xc704;&#xbcf4; &#xb7ad;&#xd06c;"/>
+            <Property name="text" type="java.lang.String" value="1 TO 50 &#xb7ad;&#xd0b9;"/>
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
