@@ -24,6 +24,7 @@ import static Main.Lobby.point;
 import Main.Rank_1;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
+import java.util.Arrays;
 import java.util.Random;
 /**
  *
@@ -39,12 +40,21 @@ public class oneTo50 extends javax.swing.JFrame {
     int mouseY;
     int PlayerX;
     int PlayerY;
+    int ButtonX;
+    int ButtonY;
     public static String name;
     public static String point;
+    JButton[][] buttons = new JButton[5][5];
+    int count = 0;
+    int count2 = 0;
+    int StartNum = 1;
+    int num[] = new int[25]; // 초기 25개의 버튼에 넣을 숫자
+    int num2[] = new int[25]; // 버튼 클릭시 들어갈 숫자
+    
     public oneTo50() {
         initComponents();
         
-             Login login = new Login();
+        Login login = new Login();
         name = login.getNick();
         NickNameLabel.setText(name + "님 반갑습니다! ");
         System.out.println(login.getNick());
@@ -54,16 +64,49 @@ public class oneTo50 extends javax.swing.JFrame {
         
         // Game 화면 생성
         Random r = new Random();
-        JButton[][] buttons = new JButton[5][5];
-        int num[] = new int[50];
         GamePanel.setLayout(new GridLayout(5,5));
+        
+        for(int i=0; i<num.length;i++) {  //num[i]에 1부터 25까지 숫자중복없이 넣기
+         int temp = r.nextInt(25)+1;
+         num[i] = temp;
+         for(int j=0;j<i;j++) {
+             if(num[i] == num[j]) {
+             i--;  // 동일한 값이 나오면 다시 
+             }
+         }               
+        }
+        
+         for(int i=0; i<num2.length;i++) {  //num2[i]에 26부터 50까지 숫자중복없이 넣기
+         int temp2 = r.nextInt(25)+26;
+         num2[i] = temp2;
+         for(int j=0;j<i;j++) {
+             if(num2[i] == num2[j]) {
+             i--;  // 동일한 값이 나오면 다시 
+             }
+         }
+        }
+        System.out.print(Arrays.toString(num2));// 26~50;
+        
+        
         for(int i=0;i<5;i++) {
-            for(int j=0;j<5;j++) {
-          
+            int tempI = i;
+            for(int j=0;j<5;j++) {          
+                int tempY = j;
                 buttons[i][j] = new JButton("");
                 GamePanel.add(buttons[i][j]);
-                buttons[i][j].setText(String.valueOf(r.nextInt(50)+1));
-            }
+                buttons[i][j].setText(String.valueOf(num[count])); // num[]값을 buttons[][]값에 넣기
+                
+                 buttons[i][j].addActionListener(new java.awt.event.ActionListener() { // 액션 리스너
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  ButtonX = tempI;
+                  ButtonY = tempY;
+                 NumButtonActionPerformed(evt); 
+                 
+                }
+            });
+                 
+                count++;          
+                }
         }
         //GamePanel.setVisible(false);
         
@@ -367,7 +410,24 @@ public class oneTo50 extends javax.swing.JFrame {
     private void RankButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RankButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_RankButton1ActionPerformed
-
+    public void NumButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        // TODO add your handling code here:
+               if(buttons[ButtonX][ButtonY].getText().equals(String.valueOf(StartNum))) {
+                System.out.println("값 맞음");
+                StartNum++;
+                
+                if(count2<25) { //25까지 눌렀을시 변경
+                buttons[ButtonX][ButtonY].setText(String.valueOf(num2[count2]));
+                count2++;
+                } else {     // 숫자 26부터 클릭시 변경          
+                 buttons[ButtonX][ButtonY].setText("클리어");
+                }
+               }
+              //  System.out.println("카운트");
+            
+        }
+        
+   
     /**
      * @param args the command line arguments
      */
