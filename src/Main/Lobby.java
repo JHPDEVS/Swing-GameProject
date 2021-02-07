@@ -18,7 +18,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Register.Register;
 import Main.Lobby;
-import Game.rps;
+import Game.oneTo50;
 /**
  *
  * @author 박주형
@@ -351,7 +351,7 @@ public class Lobby extends javax.swing.JFrame {
 
     private void rpsStartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rpsStartMouseClicked
         // TODO add your handling code here:
-        rps rps = new rps();
+        oneTo50 rps = new oneTo50();
         rps.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_rpsStartMouseClicked
