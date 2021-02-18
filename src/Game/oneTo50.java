@@ -26,6 +26,8 @@ import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 /**
  *
  * @author 박주형
@@ -53,62 +55,9 @@ public class oneTo50 extends javax.swing.JFrame {
     
     public oneTo50() {
         initComponents();
+        getUserInfo();
+        CountNum.setVisible(false);
         
-        Login login = new Login();
-        name = login.getNick();
-        NickNameLabel.setText(name + "님 반갑습니다! ");
-        System.out.println(login.getNick());
-        point = login.getPoint();
-        pointLabel.setText("보유 IQ : " + point);
-        
-        
-        // Game 화면 생성
-        Random r = new Random();
-        GamePanel.setLayout(new GridLayout(5,5));
-        
-        for(int i=0; i<num.length;i++) {  //num[i]에 1부터 25까지 숫자중복없이 넣기
-         int temp = r.nextInt(25)+1;
-         num[i] = temp;
-         for(int j=0;j<i;j++) {
-             if(num[i] == num[j]) {
-             i--;  // 동일한 값이 나오면 다시 
-             }
-         }               
-        }
-        
-         for(int i=0; i<num2.length;i++) {  //num2[i]에 26부터 50까지 숫자중복없이 넣기
-         int temp2 = r.nextInt(25)+26;
-         num2[i] = temp2;
-         for(int j=0;j<i;j++) {
-             if(num2[i] == num2[j]) {
-             i--;  // 동일한 값이 나오면 다시 
-             }
-         }
-        }
-        System.out.print(Arrays.toString(num2));// 26~50;
-        
-        
-        for(int i=0;i<5;i++) {
-            int tempI = i;
-            for(int j=0;j<5;j++) {          
-                int tempY = j;
-                buttons[i][j] = new JButton("");
-                GamePanel.add(buttons[i][j]);
-                buttons[i][j].setText(String.valueOf(num[count])); // num[]값을 buttons[][]값에 넣기
-                
-                 buttons[i][j].addActionListener(new java.awt.event.ActionListener() { // 액션 리스너
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                  ButtonX = tempI;
-                  ButtonY = tempY;
-                 NumButtonActionPerformed(evt); 
-                 
-                }
-            });
-                 
-                count++;          
-                }
-        }
-        //GamePanel.setVisible(false);
         
     }
 
@@ -128,12 +77,15 @@ public class oneTo50 extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         NickNameLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         RankButton = new javax.swing.JButton();
         pointLabel = new javax.swing.JLabel();
         RankButton1 = new javax.swing.JButton();
         GameLabelPanel = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        gameStartButton = new javax.swing.JButton();
+        CountNum = new javax.swing.JLabel();
         GamePanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -230,13 +182,9 @@ public class oneTo50 extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/users-1.png"))); // NOI18N
         jLabel1.setText("jLabel1");
 
-        jButton1.setBackground(new java.awt.Color(51, 204, 255));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("인벤토리");
-
         RankButton.setBackground(new java.awt.Color(51, 204, 255));
         RankButton.setForeground(new java.awt.Color(255, 255, 255));
-        RankButton.setText("가위바위보 랭킹");
+        RankButton.setText("1 TO 50 랭킹");
         RankButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RankButtonActionPerformed(evt);
@@ -276,7 +224,6 @@ public class oneTo50 extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(RankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(RankButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(23, 23, 23))
         );
@@ -289,13 +236,11 @@ public class oneTo50 extends javax.swing.JFrame {
                 .addComponent(NickNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
                 .addComponent(pointLabel)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
+                .addGap(60, 60, 60)
                 .addComponent(RankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(26, 26, 26)
                 .addComponent(RankButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(63, Short.MAX_VALUE))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, -1));
@@ -320,6 +265,52 @@ public class oneTo50 extends javax.swing.JFrame {
         );
 
         getContentPane().add(GameLabelPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 810, 30));
+
+        jLabel2.setText("카운트 다운");
+
+        gameStartButton.setText("게임 시작");
+        gameStartButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gameStartButtonActionPerformed(evt);
+            }
+        });
+
+        CountNum.setFont(new java.awt.Font("굴림", 1, 36)); // NOI18N
+        CountNum.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        CountNum.setText("3");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(310, 310, 310)
+                        .addComponent(gameStartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(318, 318, 318)
+                        .addComponent(CountNum, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(293, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(172, 172, 172)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(91, 91, 91)
+                        .addComponent(CountNum, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(gameStartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(183, Short.MAX_VALUE))
+        );
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 810, 510));
 
         GamePanel.setBackground(new java.awt.Color(102, 102, 255));
 
@@ -410,24 +401,122 @@ public class oneTo50 extends javax.swing.JFrame {
     private void RankButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RankButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_RankButton1ActionPerformed
+
+    private void gameStartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameStartButtonActionPerformed
+        // TODO add your handling code here:
+        gameStartButton.setVisible(false);
+        gameStart();
+    }//GEN-LAST:event_gameStartButtonActionPerformed
     public void NumButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
                if(buttons[ButtonX][ButtonY].getText().equals(String.valueOf(StartNum))) {
+                System.out.println(StartNum);
                 System.out.println("값 맞음");
                 StartNum++;
-                
                 if(count2<25) { //25까지 눌렀을시 변경
                 buttons[ButtonX][ButtonY].setText(String.valueOf(num2[count2]));
+                   buttons[ButtonX][ButtonY].setBackground(Color.white);
                 count2++;
                 } else {     // 숫자 26부터 클릭시 변경          
                  buttons[ButtonX][ButtonY].setText("클리어");
+                 buttons[ButtonX][ButtonY].setBackground(Color.black);
+                 buttons[ButtonX][ButtonY].setForeground(Color.red);
+              //   buttons[ButtonX][ButtonY].setBorder(new Border(1,1,1));
                 }
+                check();
                }
               //  System.out.println("카운트");
             
         }
+    
+    public void check() {
+        if(StartNum == 51) {
+            win();
+        }
+    }
+    private void getUserInfo() {
+        Login login = new Login();
+        name = login.getNick();
+        NickNameLabel.setText(name + "님 반갑습니다! ");
+        System.out.println(login.getNick());
+        point = login.getPoint();
+        pointLabel.setText("보유 IQ : " + point);
+    }
+    private void gameStart() {
+         CountDown();
+    }
+    private void CountDown () {
+          Timer t = new Timer();
+          CountDownTasker cd = new CountDownTasker();
+          t.scheduleAtFixedRate(cd, 0, 1000);
+          try {
+              Thread.sleep(3000);
+        } catch (Exception e) {
+        }
+         t.cancel();
+    }
+    class CountDownTasker extends TimerTask {
+
+        @Override
+        public void run() {
+           CountNum.setVisible(true);
+           int a = Integer.parseInt(CountNum.getText()) -1;
+           CountNum.setText(Integer.toString(a));
+           repaint();
+        }
         
-   
+    }
+    private void makeMap() {
+              // Game 화면 생성
+        Random r = new Random();
+        GamePanel.setLayout(new GridLayout(5,5,5,5));
+        
+        for(int i=0; i<num.length;i++) {  //num[i]에 1부터 25까지 숫자중복없이 넣기
+         int temp = r.nextInt(25)+1;
+         num[i] = temp;
+         for(int j=0;j<i;j++) {
+             if(num[i] == num[j]) {
+             i--;  // 동일한 값이 나오면 다시 
+             }
+         }               
+        }
+        
+         for(int i=0; i<num2.length;i++) {  //num2[i]에 26부터 50까지 숫자중복없이 넣기
+         int temp2 = r.nextInt(25)+26;
+         num2[i] = temp2;
+         for(int j=0;j<i;j++) {
+             if(num2[i] == num2[j]) {
+             i--;  // 동일한 값이 나오면 다시 
+             }
+         }
+        }
+        System.out.print(Arrays.toString(num2));// 26~50;
+        
+        
+        for(int i=0;i<5;i++) {
+            int tempI = i;
+            for(int j=0;j<5;j++) {          
+                int tempY = j;
+                buttons[i][j] = new JButton("");
+                GamePanel.add(buttons[i][j]);
+                buttons[i][j].setText(String.valueOf(num[count])); // num[]값을 buttons[][]값에 넣기
+                
+                 buttons[i][j].addActionListener(new java.awt.event.ActionListener() { // 액션 리스너
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                  ButtonX = tempI;
+                  ButtonY = tempY;
+                 NumButtonActionPerformed(evt); 
+                 
+                }
+            });
+                 
+                count++;          
+                }
+        }
+    }
+    private void win() {
+    System.out.println("승리");
+            }   
     /**
      * @param args the command line arguments
      */
@@ -467,17 +556,20 @@ public class oneTo50 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BackKey;
     private javax.swing.JLabel Close;
+    private javax.swing.JLabel CountNum;
     private javax.swing.JPanel GameLabelPanel;
     private javax.swing.JPanel GamePanel;
     private javax.swing.JLabel Minimize;
     private javax.swing.JLabel NickNameLabel;
     private javax.swing.JButton RankButton;
     private javax.swing.JButton RankButton1;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton gameStartButton;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel pointLabel;
     // End of variables declaration//GEN-END:variables
 }
