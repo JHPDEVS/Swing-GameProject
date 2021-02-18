@@ -247,8 +247,10 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jLabel3" min="-2" pref="127" max="-2" attributes="0"/>
-                  <EmptySpace pref="671" max="32767" attributes="0"/>
+                  <Component id="GameName" min="-2" pref="127" max="-2" attributes="0"/>
+                  <EmptySpace pref="595" max="32767" attributes="0"/>
+                  <Component id="TimerLabel" min="-2" pref="64" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -256,16 +258,24 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="GameName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="TimerLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel3">
+        <Component class="javax.swing.JLabel" name="GameName">
           <Properties>
             <Property name="text" type="java.lang.String" value="GameLabel"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="TimerLabel">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="00:00:00"/>
           </Properties>
         </Component>
       </SubComponents>
@@ -289,28 +299,18 @@
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="318" max="-2" attributes="0"/>
                           <Component id="CountNum" min="-2" pref="67" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" pref="120" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="293" max="32767" attributes="0"/>
+                  <EmptySpace pref="409" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="172" max="-2" attributes="0"/>
-                          <Component id="jLabel2" min="-2" pref="95" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
-                          <Component id="CountNum" min="-2" pref="94" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
+                  <Component id="CountNum" min="-2" pref="94" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
                   <Component id="gameStartButton" min="-2" pref="42" max="-2" attributes="0"/>
                   <EmptySpace pref="183" max="32767" attributes="0"/>
               </Group>
@@ -318,11 +318,6 @@
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="jLabel2">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="&#xce74;&#xc6b4;&#xd2b8; &#xb2e4;&#xc6b4;"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="gameStartButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xac8c;&#xc784; &#xc2dc;&#xc791;"/>

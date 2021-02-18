@@ -24,7 +24,9 @@ import static Main.Lobby.point;
 import Main.Rank_1;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -52,12 +54,16 @@ public class oneTo50 extends javax.swing.JFrame {
     int StartNum = 1;
     int num[] = new int[25]; // 초기 25개의 버튼에 넣을 숫자
     int num2[] = new int[25]; // 버튼 클릭시 들어갈 숫자
-    
+    Timer t = new Timer();
+    public static String gameName = "1 부터 50까지";
+    public long oldTime;
+    public long currentTime;
     public oneTo50() {
         initComponents();
-        getUserInfo();
+        getUserInfo(); // 포인트랑 닉네임 불러오기
         CountNum.setVisible(false);
-        
+        TimerLabel.setVisible(false);
+        GameName.setText(gameName); // 게임 타이틀 지정
         
     }
 
@@ -81,9 +87,9 @@ public class oneTo50 extends javax.swing.JFrame {
         pointLabel = new javax.swing.JLabel();
         RankButton1 = new javax.swing.JButton();
         GameLabelPanel = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        GameName = new javax.swing.JLabel();
+        TimerLabel = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         gameStartButton = new javax.swing.JButton();
         CountNum = new javax.swing.JLabel();
         GamePanel = new javax.swing.JPanel();
@@ -245,7 +251,9 @@ public class oneTo50 extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, -1));
 
-        jLabel3.setText("GameLabel");
+        GameName.setText("GameLabel");
+
+        TimerLabel.setText("00:00:00");
 
         javax.swing.GroupLayout GameLabelPanelLayout = new javax.swing.GroupLayout(GameLabelPanel);
         GameLabelPanel.setLayout(GameLabelPanelLayout);
@@ -253,20 +261,22 @@ public class oneTo50 extends javax.swing.JFrame {
             GameLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(GameLabelPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(671, Short.MAX_VALUE))
+                .addComponent(GameName, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 595, Short.MAX_VALUE)
+                .addComponent(TimerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         GameLabelPanelLayout.setVerticalGroup(
             GameLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GameLabelPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
+                .addGroup(GameLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(GameName)
+                    .addComponent(TimerLabel))
                 .addContainerGap())
         );
 
         getContentPane().add(GameLabelPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 810, 30));
-
-        jLabel2.setText("카운트 다운");
 
         gameStartButton.setText("게임 시작");
         gameStartButton.addActionListener(new java.awt.event.ActionListener() {
@@ -290,22 +300,15 @@ public class oneTo50 extends javax.swing.JFrame {
                         .addComponent(gameStartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(318, 318, 318)
-                        .addComponent(CountNum, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(293, Short.MAX_VALUE))
+                        .addComponent(CountNum, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(409, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(172, 172, 172)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(91, 91, 91)
-                        .addComponent(CountNum, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
+                .addGap(91, 91, 91)
+                .addComponent(CountNum, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100)
                 .addComponent(gameStartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(183, Short.MAX_VALUE))
         );
@@ -446,23 +449,28 @@ public class oneTo50 extends javax.swing.JFrame {
          CountDown();
     }
     private void CountDown () {
-          Timer t = new Timer();
+          CountNum.setVisible(true);
           CountDownTasker cd = new CountDownTasker();
-          t.scheduleAtFixedRate(cd, 0, 1000);
-          try {
-              Thread.sleep(3000);
-        } catch (Exception e) {
-        }
-         t.cancel();
+          t.scheduleAtFixedRate(cd, 1000, 1000);
+      
+          
+       
     }
     class CountDownTasker extends TimerTask {
 
         @Override
         public void run() {
-           CountNum.setVisible(true);
-           int a = Integer.parseInt(CountNum.getText()) -1;
-           CountNum.setText(Integer.toString(a));
-           repaint();
+            if(Integer.parseInt(CountNum.getText()) >1) {
+                int a = Integer.parseInt(CountNum.getText()) -1;
+                CountNum.setText(Integer.toString(a));
+                repaint();
+            } else {
+              CountNum.setVisible(false);
+              t.cancel(); // 타이머 종료
+              TimerLabel.setVisible(true); // 우측 상단 타이머 표시
+              makeMap(); // 맵을 불러옴
+             oldTime = System.currentTimeMillis();
+            }
         }
         
     }
@@ -470,6 +478,11 @@ public class oneTo50 extends javax.swing.JFrame {
               // Game 화면 생성
         Random r = new Random();
         GamePanel.setLayout(new GridLayout(5,5,5,5));
+        SimpleDateFormat dayTime = new SimpleDateFormat("hh:mm:ss");
+        currentTime =  System.currentTimeMillis();
+        String str = dayTime.format(new Date(currentTime));
+        System.out.println(str);
+        
         
         for(int i=0; i<num.length;i++) {  //num[i]에 1부터 25까지 숫자중복없이 넣기
          int temp = r.nextInt(25)+1;
@@ -558,15 +571,15 @@ public class oneTo50 extends javax.swing.JFrame {
     private javax.swing.JLabel Close;
     private javax.swing.JLabel CountNum;
     private javax.swing.JPanel GameLabelPanel;
+    private javax.swing.JLabel GameName;
     private javax.swing.JPanel GamePanel;
     private javax.swing.JLabel Minimize;
     private javax.swing.JLabel NickNameLabel;
     private javax.swing.JButton RankButton;
     private javax.swing.JButton RankButton1;
+    private javax.swing.JLabel TimerLabel;
     private javax.swing.JButton gameStartButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
