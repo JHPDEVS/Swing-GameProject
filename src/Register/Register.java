@@ -371,9 +371,9 @@ public class Register extends javax.swing.JFrame {
 
         try {
             if(allinputed()) {
-                if(!DupiName()) {
-                    
-                 st = My_CNX.getConnection().prepareStatement(query);
+                if(!DupiID()) {
+                    if(!DupiName()) {
+            st = My_CNX.getConnection().prepareStatement(query);
             st.setString(1, ID);
             st.setString(2, password);
             st.setString(3, age);
@@ -382,8 +382,6 @@ public class Register extends javax.swing.JFrame {
             if(st.executeUpdate()!=0) {
             //     Nick = nickname;
                 JOptionPane.showMessageDialog(null, "회원가입 완료 되었습니다 \n 로그인 해주세요","회원가입 완료", 1);
-                 Login login = new Login();
-                login.setVisible(true);
                 this.dispose();
             }
                 }
@@ -391,6 +389,7 @@ public class Register extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "정확히 다시 입력해주세요","회원가입 오류", 2);
             
      
+            }
             }
         }
         catch (SQLException ex) {
@@ -499,7 +498,7 @@ public class Register extends javax.swing.JFrame {
         }
     }
     
-    public boolean DupiName() {
+    public boolean DupiID() {
         PreparedStatement st;
         ResultSet rs;
         
@@ -513,7 +512,7 @@ public class Register extends javax.swing.JFrame {
             rs = st.executeQuery();
             if(rs.next()) {
                 System.out.println("중복된 아이디");
-                 JOptionPane.showMessageDialog(null, "중복된 아이디입니다","로그인 오류", 2);
+                 JOptionPane.showMessageDialog(null, "중복된 아이디입니다","회원가입 오류", 2);
                 Dupi = true;
         } else {
             
@@ -526,7 +525,33 @@ public class Register extends javax.swing.JFrame {
         }
         return Dupi;
     }
-    
+     public boolean DupiName() {
+        PreparedStatement st;
+        ResultSet rs;
+        
+        String nickname = NickName.getText();
+        boolean Dupi = false;
+        String query = "SELECT * FROM `users` WHERE `nickname` = ?";
+        
+        try {
+            st = My_CNX.getConnection().prepareStatement(query);
+            st.setString(1, nickname);
+            rs = st.executeQuery();
+            if(rs.next()) {
+                System.out.println("중복된 닉네임");
+                 JOptionPane.showMessageDialog(null, "중복된 닉네임입니다","회원가입 오류", 2);
+                Dupi = true;
+        } else {
+            
+                 Dupi = false;
+            }
+        }
+                catch (SQLException ex) {
+                
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Dupi;
+    }
     private void PasswordFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_PasswordFieldFocusGained
         // TODO add your handling code here:
         String pass = String.valueOf(PasswordField.getPassword());
