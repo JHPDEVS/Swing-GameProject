@@ -38,8 +38,7 @@ public class Lobby extends javax.swing.JFrame {
         name = login.getNick();
         NickNameLabel.setText(name + "님 반갑습니다! ");
         System.out.println(login.getNick());
-        point = login.getPoint();
-        pointLabel.setText("보유 IQ : " + point);
+        getPoint(); // 포인트 불러오기
         
 //        if(login.getNick() == null) { // 회원가입으로 접속한 경우
 //        Register regi = new Register();
@@ -48,7 +47,32 @@ public class Lobby extends javax.swing.JFrame {
 //        }
         
     }
-
+    private void getPoint() {
+        PreparedStatement st;
+        ResultSet rs;
+        
+        String query = "SELECT `nickname` ,`point` FROM `users` WHERE `nickname`=?";
+        
+        try {
+            st = My_CNX.getConnection().prepareStatement(query);
+            st.setString(1, name);
+            rs = st.executeQuery();
+            
+            if(rs.next()) {
+                point = rs.getString("point");
+                System.out.println("포인트 불러오기 완료");
+                pointLabel.setText("보유 IQ : " + point);
+            } else { 
+                if(name == "게스트") {
+                    pointLabel.setText("게스트 모드");
+                }
+            }
+        }
+                catch (SQLException ex) {
+                
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -170,11 +194,18 @@ public class Lobby extends javax.swing.JFrame {
 
         jButton1.setBackground(new java.awt.Color(51, 204, 255));
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("인벤토리");
+        jButton1.setText("상점 (준비중)");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         RankButton.setBackground(new java.awt.Color(51, 204, 255));
         RankButton.setForeground(new java.awt.Color(255, 255, 255));
         RankButton.setText("랭킹");
+        RankButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         RankButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RankButtonActionPerformed(evt);
@@ -201,10 +232,10 @@ public class Lobby extends javax.swing.JFrame {
                                 .addComponent(NickNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGroup(jPanel1Layout.createSequentialGroup()
                                             .addGap(10, 10, 10)
-                                            .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGap(0, 0, Short.MAX_VALUE))))))
                 .addGap(23, 23, 23))
         );
@@ -216,8 +247,8 @@ public class Lobby extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(NickNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(pointLabel)
-                .addGap(18, 18, 18)
+                .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(37, 37, 37)
                 .addComponent(RankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,7 +259,7 @@ public class Lobby extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 204, 204));
 
-        jLabel3.setText("가위바위보!");
+        jLabel3.setText("1 to 50");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -355,6 +386,11 @@ public class Lobby extends javax.swing.JFrame {
         rps.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_rpsStartMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(null, "상점 구현중입니다","준비중", 1);
+    }//GEN-LAST:event_jButton1ActionPerformed
    public String getNick() {
        return this.name;
    }
