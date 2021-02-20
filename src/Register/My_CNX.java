@@ -15,11 +15,11 @@ import java.util.logging.Logger;
  * @author 박주형
  */
 public class My_CNX {
-    private static String server = "zergxp.iptime.org";
+    private static String server = "";
     private static String username = "root";
-    private static String dbname = "users_db";
-    private static Integer portnumber = 3307;
-    private static String password = "!wngud123";
+    private static String dbname = "";
+    private static Integer portnumber = ;
+    private static String password = "";
     
     public static Connection getConnection() {
         Connection cnx = null;
