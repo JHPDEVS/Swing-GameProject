@@ -61,6 +61,8 @@ public class oneTo50 extends javax.swing.JFrame {
     public long currentTime;
     public long realTime;
     private String Time;
+    private String currentPoint = "99999";
+    private int sqlSaveRealTime;
     public oneTo50() {
         initComponents();
         getUserInfo(); // 포인트랑 닉네임 불러오기
@@ -444,9 +446,7 @@ public class oneTo50 extends javax.swing.JFrame {
         Login login = new Login();
         name = login.getNick();
         NickNameLabel.setText(name + "님 반갑습니다! ");
-        System.out.println(login.getNick());
-        point = login.getPoint();
-        pointLabel.setText("보유 IQ : " + point);
+        getPoint(); // point 불러오기
     }
     private void gameStart() {
          CountDown();
@@ -472,6 +472,7 @@ public class oneTo50 extends javax.swing.JFrame {
         currentTime =  System.currentTimeMillis();
         SimpleDateFormat dayTime = new SimpleDateFormat("mm분 ss초");
         realTime = currentTime - oldTime;
+        sqlSaveRealTime = (int) realTime / 1000;
         String str = dayTime.format(new Date(realTime));
         System.out.println(realTime);
         TimerLabel.setText(String.valueOf(str));  
@@ -496,7 +497,7 @@ public class oneTo50 extends javax.swing.JFrame {
         
     }
     private void makeMap() {
-              // Game 화면 생성
+        // Game 화면 생성
         oldTime = System.currentTimeMillis();      
         Random r = new Random();
         GamePanel.setLayout(new GridLayout(5,5,5,5));
@@ -553,22 +554,44 @@ public class oneTo50 extends javax.swing.JFrame {
     private void win() {
     System.out.println("승리");
     gameTimer.cancel();
-    updateRank();
+    getRank();
+    System.out.println(realTime);
+    System.out.println(currentPoint);
+    if(sqlSaveRealTime < Integer.parseInt(currentPoint)) {
+    updateRank(); // 최고기록 갱신
+    System.out.println("최고 기록 갱신");
+    } else {
+    System.out.println("최고 기록을 갱신 못하셨습니다");
+    }
             }   
     
     private void updateRank() {
-      PreparedStatement st;
+        PreparedStatement st , st2 ,st3;
         ResultSet rs;
         Time = TimerLabel.getText();
         System.out.println(Time);
-        String query = "UPDATE `users` SET `1TO50point`=? WHERE `nickname`=?";
+        String query = "UPDATE `users` SET `1TO50point`=? WHERE `nickname`=?"; // 랭킹 갱신
+        String query2 = "UPDATE `users` SET `point`=`point`+100 WHERE `nickname`=?"; // 포인트 추가
+        String query3 = "UPDATE `users` SET `1TO50value`=? WHERE `nickname`=?"; // 비교하기 쉽게 랭킹(타이머) int 값으로 저장
         try {
             st = My_CNX.getConnection().prepareStatement(query);
             st.setString(1, String.valueOf(Time));
             st.setString(2, name);
+            st2 = My_CNX.getConnection().prepareStatement(query2);
+            st2.setString(1, name);
+            st3 = My_CNX.getConnection().prepareStatement(query3);
+            st3.setString(1, String.valueOf(sqlSaveRealTime));
+            st3.setString(2, name);
             if(st.executeUpdate()!=0) {
             //     Nick = nickname;
-                JOptionPane.showMessageDialog(null, "랭킹 등록 완료","회원가입 완료", 1);
+            }
+            if(st2.executeUpdate()!=0) {
+            //     Nick = nickname;
+                getPoint(); // point 최신화
+            }
+            if(st3.executeUpdate()!=0) {
+            //     Nick = nickname;
+             
             }
         }
            catch (SQLException ex) {
@@ -576,6 +599,51 @@ public class oneTo50 extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+    }
+    private void getRank() {
+        PreparedStatement st;
+        ResultSet rs;
+        
+        String query = "SELECT `nickname` ,`1TO50value` FROM `users` WHERE `nickname`=? AND `1TO50value` IS NOT NULL";
+        
+        try {
+            st = My_CNX.getConnection().prepareStatement(query);
+            st.setString(1, name);
+            rs = st.executeQuery();
+            
+            if(rs.next()) {
+                currentPoint = rs.getString("1TO50value");
+                System.out.println("전적 불러오기 완료");
+            } else {
+            System.out.println("존재하는 전적이 없습니다");
+            }
+        }
+                catch (SQLException ex) {
+                
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+     private void getPoint() {
+        PreparedStatement st;
+        ResultSet rs;
+        
+        String query = "SELECT `nickname` ,`point` FROM `users` WHERE `nickname`=?";
+        
+        try {
+            st = My_CNX.getConnection().prepareStatement(query);
+            st.setString(1, name);
+            rs = st.executeQuery();
+            
+            if(rs.next()) {
+                point = rs.getString("point");
+                System.out.println("포인트 불러오기 완료");
+                pointLabel.setText("보유 IQ : " + point);
+            } 
+        }
+                catch (SQLException ex) {
+                
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     /**
      * @param args the command line arguments
