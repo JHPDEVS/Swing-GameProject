@@ -55,9 +55,12 @@ public class oneTo50 extends javax.swing.JFrame {
     int num[] = new int[25]; // 초기 25개의 버튼에 넣을 숫자
     int num2[] = new int[25]; // 버튼 클릭시 들어갈 숫자
     Timer t = new Timer();
+    Timer gameTimer = new Timer();
     public static String gameName = "1 부터 50까지";
     public long oldTime;
     public long currentTime;
+    public long realTime;
+    private String Time;
     public oneTo50() {
         initComponents();
         getUserInfo(); // 포인트랑 닉네임 불러오기
@@ -433,7 +436,7 @@ public class oneTo50 extends javax.swing.JFrame {
         }
     
     public void check() {
-        if(StartNum == 51) {
+        if(StartNum == 3) {
             win();
         }
     }
@@ -453,8 +456,27 @@ public class oneTo50 extends javax.swing.JFrame {
           CountDownTasker cd = new CountDownTasker();
           t.scheduleAtFixedRate(cd, 1000, 1000);
       
-          
-       
+                 
+    }
+    
+    private void gameTimer () {      
+          gameTimerCount gtc = new gameTimerCount();
+          gameTimer.scheduleAtFixedRate(gtc, 1000, 1000);
+      
+                 
+    }
+     class gameTimerCount extends TimerTask {
+
+        @Override
+        public void run() {
+        currentTime =  System.currentTimeMillis();
+        SimpleDateFormat dayTime = new SimpleDateFormat("mm분 ss초");
+        realTime = currentTime - oldTime;
+        String str = dayTime.format(new Date(realTime));
+        System.out.println(realTime);
+        TimerLabel.setText(String.valueOf(str));  
+        }
+        
     }
     class CountDownTasker extends TimerTask {
 
@@ -469,21 +491,22 @@ public class oneTo50 extends javax.swing.JFrame {
               t.cancel(); // 타이머 종료
               TimerLabel.setVisible(true); // 우측 상단 타이머 표시
               makeMap(); // 맵을 불러옴
-             oldTime = System.currentTimeMillis();
             }
         }
         
     }
     private void makeMap() {
               // Game 화면 생성
+        oldTime = System.currentTimeMillis();      
         Random r = new Random();
         GamePanel.setLayout(new GridLayout(5,5,5,5));
         SimpleDateFormat dayTime = new SimpleDateFormat("hh:mm:ss");
-        currentTime =  System.currentTimeMillis();
         String str = dayTime.format(new Date(currentTime));
         System.out.println(str);
-        
-        
+        System.out.println(oldTime);
+        System.out.println(currentTime);
+        System.out.println(realTime);
+        gameTimer(); // 게임 타이머 가동
         for(int i=0; i<num.length;i++) {  //num[i]에 1부터 25까지 숫자중복없이 넣기
          int temp = r.nextInt(25)+1;
          num[i] = temp;
@@ -529,7 +552,31 @@ public class oneTo50 extends javax.swing.JFrame {
     }
     private void win() {
     System.out.println("승리");
+    gameTimer.cancel();
+    updateRank();
             }   
+    
+    private void updateRank() {
+      PreparedStatement st;
+        ResultSet rs;
+        Time = TimerLabel.getText();
+        System.out.println(Time);
+        String query = "UPDATE `users` SET `1TO50point`=? WHERE `nickname`=?";
+        try {
+            st = My_CNX.getConnection().prepareStatement(query);
+            st.setString(1, String.valueOf(Time));
+            st.setString(2, name);
+            if(st.executeUpdate()!=0) {
+            //     Nick = nickname;
+                JOptionPane.showMessageDialog(null, "랭킹 등록 완료","회원가입 완료", 1);
+            }
+        }
+           catch (SQLException ex) {
+                
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     /**
      * @param args the command line arguments
      */
