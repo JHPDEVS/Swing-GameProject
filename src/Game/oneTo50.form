@@ -142,13 +142,13 @@
                           <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="NickNameLabel" alignment="0" max="32767" attributes="0"/>
-                              <Group type="102" alignment="0" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                                          <Component id="pointLabel" min="-2" pref="167" max="-2" attributes="0"/>
-                                      </Group>
                                       <Component id="jLabel1" alignment="0" min="-2" pref="186" max="-2" attributes="0"/>
+                                      <Group type="102" attributes="0">
+                                          <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
+                                          <Component id="pointLabel" min="-2" pref="203" max="-2" attributes="0"/>
+                                      </Group>
                                   </Group>
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
@@ -158,7 +158,8 @@
                           <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="RankButton" min="-2" pref="237" max="-2" attributes="0"/>
-                              <Component id="RankButton1" alignment="0" min="-2" pref="237" max="-2" attributes="0"/>
+                              <Component id="GameExplain" alignment="0" min="-2" pref="237" max="-2" attributes="0"/>
+                              <Component id="Restart" alignment="0" min="-2" pref="237" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -174,12 +175,14 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="NickNameLabel" min="-2" pref="48" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                  <Component id="pointLabel" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+                  <Component id="pointLabel" min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="RankButton" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                  <Component id="RankButton1" min="-2" pref="50" max="-2" attributes="0"/>
-                  <EmptySpace pref="103" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="GameExplain" min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="Restart" min="-2" pref="50" max="-2" attributes="0"/>
+                  <EmptySpace pref="59" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -219,7 +222,7 @@
             <Property name="text" type="java.lang.String" value="&#xd3ec;&#xc778;&#xd2b8;"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="RankButton1">
+        <Component class="javax.swing.JButton" name="GameExplain">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="cc" red="33" type="rgb"/>
@@ -230,7 +233,21 @@
             <Property name="text" type="java.lang.String" value="&#xac8c;&#xc784; &#xc124;&#xba85;"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RankButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="GameExplainActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="Restart">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="99" green="99" red="ff" type="rgb"/>
+            </Property>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&#xb2e4;&#xc2dc;&#xd558;&#xae30;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RestartActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

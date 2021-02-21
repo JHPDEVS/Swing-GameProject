@@ -61,7 +61,9 @@ public class oneTo50 extends javax.swing.JFrame {
     public long currentTime;
     public long realTime;
     private String Time;
-    private String currentPoint = "99999";
+    public String currentPoint;
+    public static String currentPoint2;
+    public static String str;
     private int sqlSaveRealTime;
     public oneTo50() {
         initComponents();
@@ -90,7 +92,8 @@ public class oneTo50 extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         RankButton = new javax.swing.JButton();
         pointLabel = new javax.swing.JLabel();
-        RankButton1 = new javax.swing.JButton();
+        GameExplain = new javax.swing.JButton();
+        Restart = new javax.swing.JButton();
         GameLabelPanel = new javax.swing.JPanel();
         GameName = new javax.swing.JLabel();
         TimerLabel = new javax.swing.JLabel();
@@ -205,12 +208,21 @@ public class oneTo50 extends javax.swing.JFrame {
         pointLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pointLabel.setText("포인트");
 
-        RankButton1.setBackground(new java.awt.Color(51, 204, 255));
-        RankButton1.setForeground(new java.awt.Color(255, 255, 255));
-        RankButton1.setText("게임 설명");
-        RankButton1.addActionListener(new java.awt.event.ActionListener() {
+        GameExplain.setBackground(new java.awt.Color(51, 204, 255));
+        GameExplain.setForeground(new java.awt.Color(255, 255, 255));
+        GameExplain.setText("게임 설명");
+        GameExplain.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RankButton1ActionPerformed(evt);
+                GameExplainActionPerformed(evt);
+            }
+        });
+
+        Restart.setBackground(new java.awt.Color(255, 153, 153));
+        Restart.setForeground(new java.awt.Color(255, 255, 255));
+        Restart.setText("다시하기");
+        Restart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RestartActionPerformed(evt);
             }
         });
 
@@ -226,16 +238,17 @@ public class oneTo50 extends javax.swing.JFrame {
                             .addComponent(NickNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(10, 10, 10)
-                                        .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(RankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(RankButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(GameExplain, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Restart, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
@@ -246,12 +259,14 @@ public class oneTo50 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(NickNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(pointLabel)
-                .addGap(60, 60, 60)
+                .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(RankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
-                .addComponent(RankButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(103, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(GameExplain, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(Restart, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, -1));
@@ -406,15 +421,27 @@ public class oneTo50 extends javax.swing.JFrame {
         rank.setVisible(true);
     }//GEN-LAST:event_RankButtonActionPerformed
 
-    private void RankButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RankButton1ActionPerformed
+    private void GameExplainActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GameExplainActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_RankButton1ActionPerformed
+        oneto50Explain explain = new oneto50Explain();
+        explain.setVisible(true);
+    }//GEN-LAST:event_GameExplainActionPerformed
 
     private void gameStartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameStartButtonActionPerformed
         // TODO add your handling code here:
         gameStartButton.setVisible(false);
         gameStart();
     }//GEN-LAST:event_gameStartButtonActionPerformed
+    public void restart() {
+        this.dispose();
+        oneTo50 ng = new oneTo50();
+        ng.setVisible(true);
+    }
+    private void RestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestartActionPerformed
+        // TODO add your handling code here:
+        // Game 화면 생성
+        restart();
+    }//GEN-LAST:event_RestartActionPerformed
     public void NumButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
                if(buttons[ButtonX][ButtonY].getText().equals(String.valueOf(StartNum))) {
@@ -447,6 +474,7 @@ public class oneTo50 extends javax.swing.JFrame {
         name = login.getNick();
         NickNameLabel.setText(name + "님 반갑습니다! ");
         getPoint(); // point 불러오기
+        getRank(); // 랭크 불러오기
     }
     private void gameStart() {
          CountDown();
@@ -458,7 +486,12 @@ public class oneTo50 extends javax.swing.JFrame {
       
                  
     }
-    
+    public String getCurrentTimer() {
+        return this.currentPoint2;
+    }
+    public void setCurrentTimer(String timer) {
+        this.currentPoint2 = timer;
+    }
     private void gameTimer () {      
           gameTimerCount gtc = new gameTimerCount();
           gameTimer.scheduleAtFixedRate(gtc, 1000, 1000);
@@ -473,7 +506,7 @@ public class oneTo50 extends javax.swing.JFrame {
         SimpleDateFormat dayTime = new SimpleDateFormat("mm분 ss초");
         realTime = currentTime - oldTime;
         sqlSaveRealTime = (int) realTime / 1000;
-        String str = dayTime.format(new Date(realTime));
+        str = dayTime.format(new Date(realTime));
         System.out.println(realTime);
         TimerLabel.setText(String.valueOf(str));  
         }
@@ -501,12 +534,6 @@ public class oneTo50 extends javax.swing.JFrame {
         oldTime = System.currentTimeMillis();      
         Random r = new Random();
         GamePanel.setLayout(new GridLayout(5,5,5,5));
-        SimpleDateFormat dayTime = new SimpleDateFormat("hh:mm:ss");
-        String str = dayTime.format(new Date(currentTime));
-        System.out.println(str);
-        System.out.println(oldTime);
-        System.out.println(currentTime);
-        System.out.println(realTime);
         gameTimer(); // 게임 타이머 가동
         for(int i=0; i<num.length;i++) {  //num[i]에 1부터 25까지 숫자중복없이 넣기
          int temp = r.nextInt(25)+1;
@@ -555,16 +582,27 @@ public class oneTo50 extends javax.swing.JFrame {
     System.out.println("승리");
     gameTimer.cancel();
     getRank();
-    System.out.println(realTime);
-    System.out.println(currentPoint);
-    if(sqlSaveRealTime < Integer.parseInt(currentPoint)) {
-    updateRank(); // 최고기록 갱신
-    System.out.println("최고 기록 갱신");
+    if(name!="게스트" && (sqlSaveRealTime < Integer.parseInt(currentPoint))) {
+       updateRank(); // 최고기록 갱신
+       System.out.println("최고 기록 갱신");
+       BestRecord bt = new BestRecord();
+       bt.setVisible(true);
     } else {
-    System.out.println("최고 기록을 갱신 못하셨습니다");
+        if(name!="게스트") {
+           System.out.println("최고 기록을 갱신 못하셨습니다");
+           updatePoint();
+           setCurrentTimer(str);
+           System.out.println(str);
+           NotRecord not = new NotRecord();
+           not.setVisible(true);
+        } else {
+        System.out.println("게스트는 랭킹 등록 불가");
+        setCurrentTimer(str);
+        GuestRecord guestWin = new GuestRecord();
+        guestWin.setVisible(true);
+        }
     }
             }   
-    
     private void updateRank() {
         PreparedStatement st , st2 ,st3;
         ResultSet rs;
@@ -582,15 +620,12 @@ public class oneTo50 extends javax.swing.JFrame {
             st3 = My_CNX.getConnection().prepareStatement(query3);
             st3.setString(1, String.valueOf(sqlSaveRealTime));
             st3.setString(2, name);
-            if(st.executeUpdate()!=0) {
-            //     Nick = nickname;
+            if(st.executeUpdate()!=0) { // 랭킹 갱신
             }
-            if(st2.executeUpdate()!=0) {
-            //     Nick = nickname;
+            if(st2.executeUpdate()!=0) { // 포인트 보상
                 getPoint(); // point 최신화
             }
-            if(st3.executeUpdate()!=0) {
-            //     Nick = nickname;
+            if(st3.executeUpdate()!=0) { // 점수 int 값으로
              
             }
         }
@@ -600,7 +635,28 @@ public class oneTo50 extends javax.swing.JFrame {
         }
 
     }
-    private void getRank() {
+    private void updatePoint() {
+        PreparedStatement st;
+        ResultSet rs;
+        String query = "UPDATE `users` SET `point`=`point`+50 WHERE `nickname`=?"; // 포인트 추가
+        try {
+            st = My_CNX.getConnection().prepareStatement(query);
+            st.setString(1, name);
+            if(st.executeUpdate()!=0) {
+            //     Nick = nickname;
+                getPoint(); // point 최신화
+            }
+        }
+           catch (SQLException ex) {
+                
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+    public String getTime() {
+        return this.Time = Time;
+    }
+    public void getRank() {
         PreparedStatement st;
         ResultSet rs;
         
@@ -615,7 +671,12 @@ public class oneTo50 extends javax.swing.JFrame {
                 currentPoint = rs.getString("1TO50value");
                 System.out.println("전적 불러오기 완료");
             } else {
-            System.out.println("존재하는 전적이 없습니다");
+                if(name != "게스트") {
+                 System.out.println("존재하는 전적이 없습니다");
+                 currentPoint = "1000000";
+                } else {
+                currentPoint = "게스트 모드";
+                }
             }
         }
                 catch (SQLException ex) {
@@ -638,13 +699,20 @@ public class oneTo50 extends javax.swing.JFrame {
                 point = rs.getString("point");
                 System.out.println("포인트 불러오기 완료");
                 pointLabel.setText("보유 IQ : " + point);
-            } 
+            } else { 
+                if(name == "게스트") {
+                    pointLabel.setText("게스트 모드");
+                }
+            }
         }
                 catch (SQLException ex) {
                 
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+     public String getBestTime() {
+     return this.currentPoint = currentPoint;
+     }
     /**
      * @param args the command line arguments
      */
@@ -685,13 +753,14 @@ public class oneTo50 extends javax.swing.JFrame {
     private javax.swing.JLabel BackKey;
     private javax.swing.JLabel Close;
     private javax.swing.JLabel CountNum;
+    private javax.swing.JButton GameExplain;
     private javax.swing.JPanel GameLabelPanel;
     private javax.swing.JLabel GameName;
     private javax.swing.JPanel GamePanel;
     private javax.swing.JLabel Minimize;
     private javax.swing.JLabel NickNameLabel;
     private javax.swing.JButton RankButton;
-    private javax.swing.JButton RankButton1;
+    private javax.swing.JButton Restart;
     private javax.swing.JLabel TimerLabel;
     private javax.swing.JButton gameStartButton;
     private javax.swing.JLabel jLabel1;
