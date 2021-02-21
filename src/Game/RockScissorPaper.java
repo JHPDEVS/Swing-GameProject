@@ -49,12 +49,12 @@ public class RockScissorPaper extends javax.swing.JFrame {
     int ButtonY;
     public static String name;
     public static String point;
-    JButton[][] buttons = new JButton[5][5];
+    JButton[] buttons = new JButton[3];
     int count = 0;
     int count2 = 0;
     int StartNum = 1;
-    int num[] = new int[25]; // 초기 25개의 버튼에 넣을 숫자
-    int num2[] = new int[25]; // 버튼 클릭시 들어갈 숫자
+    int rsp[] = new int[3]; // 초기 25개의 버튼에 넣을 숫자
+    int rspint[] = new int[3]; // 버튼 클릭시 들어갈 숫자
     Timer t = new Timer();
     Timer gameTimer = new Timer();
     public static String gameName = "머리쓰는 가위바위보";
@@ -66,6 +66,9 @@ public class RockScissorPaper extends javax.swing.JFrame {
     public static String currentPoint2;
     public static String str;
     private int sqlSaveRealTime;
+   Random r = new Random();
+   Border idBorder = BorderFactory.createMatteBorder(1, 1, 1, 20, new Color(255,153,153)); // 빨
+   Border idBorder2 = BorderFactory.createMatteBorder(1, 1, 1, 20, new Color(51,204,255)); // 파
     public RockScissorPaper() {
         initComponents();
         getUserInfo(); // 포인트랑 닉네임 불러오기
@@ -433,29 +436,61 @@ public class RockScissorPaper extends javax.swing.JFrame {
     }//GEN-LAST:event_RestartActionPerformed
     public void NumButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-               if(buttons[ButtonX][ButtonY].getText().equals(String.valueOf(StartNum))) {
                 System.out.println(StartNum);
                 System.out.println("값 맞음");
-                Border idBorder = BorderFactory.createMatteBorder(1, 1, 1, 20, new Color(255,153,153));
-                buttons[ButtonX][ButtonY].setBorder(idBorder);
-                StartNum++;
-                if(count2<25) { //25까지 눌렀을시 변경
-                buttons[ButtonX][ButtonY].setText(String.valueOf(num2[count2]));
-                buttons[ButtonX][ButtonY].setBackground(Color.white);
-                count2++;
-                } else {     // 숫자 26부터 클릭시 변경          
-                 buttons[ButtonX][ButtonY].setText("");
-                 buttons[ButtonX][ButtonY].setBackground(new Color(255,153,153));
-              //   buttons[ButtonX][ButtonY].setBorder(new Border(1,1,1));
+                System.out.println(buttons[ButtonX].getBorder().equals(idBorder));
+                if(buttons[ButtonX].getBorder().equals(idBorder)) {
+                    buttons[ButtonX].setBorder(idBorder2);
+                    System.out.println("진짜");
+                } else {
+                    buttons[ButtonX].setBorder(idBorder);
+                    System.out.println("가짜");
                 }
+                StartNum++;
+                buttons[ButtonX].setText(String.valueOf(rsp[count2]));
+                buttons[ButtonX].setBackground(Color.white);
+              
+
                 InputButtonValue.setVisible(true);
                 InputButtonValue.setText(StartNum + "를 누르세요");
                 check();
-               }
+                countNum();
+                shuffle();
+               intToString();
               //  System.out.println("카운트");
             
         }
-    
+    private void countNum() {
+        if(StartNum == 4) {
+            StartNum = 1;
+        }
+        if(count2<2) {
+          count2++; 
+        } else {
+            count = 0;
+        }
+    }
+    private void intToString() {
+        for(int i=0;i<3;i++) {
+            if(buttons[i].getText().equals("1")) {
+                buttons[i].setText("가위");
+            } else if (buttons[i].getText().equals("2")) {
+                 buttons[i].setText("바위");
+            } else {
+                buttons[i].setText("보");
+            }
+        }
+        
+        for(int i=0;i<3;i++) {
+            if(rspint[i] == 1) {
+                InputButtonValue.setText("이기세요");
+            } else if (rspint[i] == 2) {
+                 InputButtonValue.setText("지세요");
+            } else {
+                InputButtonValue.setText("비기세요");
+            }
+        }
+    }
     public void check() {
         if(StartNum == 51) {
             win();
@@ -525,54 +560,44 @@ public class RockScissorPaper extends javax.swing.JFrame {
     private void makeMap() {
         // Game 화면 생성
         oldTime = System.currentTimeMillis();      
-        Random r = new Random();
-        GamePanel.setLayout(new GridLayout(5,5,5,5));
+        GamePanel.setLayout(new GridLayout(3,1));
         gameTimer(); // 게임 타이머 가동
-        for(int i=0; i<num.length;i++) {  //num[i]에 1부터 25까지 숫자중복없이 넣기
-         int temp = r.nextInt(25)+1;
-         num[i] = temp;
+        for(int i=0; i<rsp.length;i++) {  //가위 바위 보 중복없이 버튼에 넣기
+         int temp = r.nextInt(3)+1;
+         rsp[i] = temp;
          for(int j=0;j<i;j++) {
-             if(num[i] == num[j]) {
+             if(rsp[i] == rsp[j]) {
              i--;  // 동일한 값이 나오면 다시 
              }
-         }               
+         }             
         }
         
-         for(int i=0; i<num2.length;i++) {  //num2[i]에 26부터 50까지 숫자중복없이 넣기
-         int temp2 = r.nextInt(25)+26;
-         num2[i] = temp2;
-         for(int j=0;j<i;j++) {
-             if(num2[i] == num2[j]) {
-             i--;  // 동일한 값이 나오면 다시 
-             }
-         }
+        for(int i=0; i<rspint.length;i++) {
+         int temp2 = r.nextInt(3)+1;
+         rspint[i] = temp2;
         }
-        System.out.print(Arrays.toString(num2));// 26~50;
+        
+     
         
         
-        for(int i=0;i<5;i++) {
-            int tempI = i;
-            for(int j=0;j<5;j++) {          
-                int tempY = j;
-                buttons[i][j] = new JButton("");
-                GamePanel.add(buttons[i][j]);
-                buttons[i][j].setText(String.valueOf(num[count])); // num[]값을 buttons[][]값에 넣기
-                buttons[i][j].setFont(new Font("굴림",Font.BOLD,15));
-                Border idBorder = BorderFactory.createMatteBorder(1, 1, 1, 20, new Color(51,204,255));
-                buttons[i][j].setBorder(idBorder);
-                buttons[i][j].setBackground(Color.white);
-                buttons[i][j].addActionListener(new java.awt.event.ActionListener() { // 액션 리스너
+        for(int i=0;i<3;i++) {
+            int tempI = i;  
+                buttons[i] = new JButton("");
+                GamePanel.add(buttons[i]);
+                buttons[i].setFont(new Font("굴림",Font.BOLD,15));
+                buttons[i].setBorder(idBorder2);
+                buttons[i].setBackground(Color.white);
+                buttons[i].setText(String.valueOf(rsp[i]));          
+                buttons[i].addActionListener(new java.awt.event.ActionListener() { // 액션 리스너
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                   ButtonX = tempI;
-                  ButtonY = tempY;
                  NumButtonActionPerformed(evt); 
                  
                 }
             });
-                 
-                count++;          
+                count++;  
                 }
-        }
+          intToString(); 
     }
     private void win() {
     System.out.println("승리");
@@ -598,7 +623,25 @@ public class RockScissorPaper extends javax.swing.JFrame {
         guestWin.setVisible(true);
         }
     }
-            }   
+            }
+    private void shuffle() {
+       for(int i=0; i<rsp.length;i++) {  //가위 바위 보 순서 바꾸기
+         int temp = r.nextInt(3)+1;
+         rsp[i] = temp;
+         for(int j=0;j<i;j++) {
+             if(rsp[i] == rsp[j]) {
+             i--;  // 동일한 값이 나오면 다시 
+             }
+         }
+      }      
+        for(int i=0;i<3;i++) {
+             buttons[i].setText(String.valueOf(rsp[i])); // 버튼에 가위 바위 보 넣기
+    }
+        for(int i=0; i<rspint.length;i++) {
+         int temp2 = r.nextInt(3)+1;
+         rspint[i] = temp2;
+        }
+    }
     private void updateRank() {
         PreparedStatement st , st2 ,st3;
         ResultSet rs;
