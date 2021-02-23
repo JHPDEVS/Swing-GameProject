@@ -76,7 +76,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
         TimerLabel.setVisible(false);
         InputButtonValue.setVisible(false);
         GameName.setText(gameName); // 게임 타이틀 지정
-        
+        updateCurrentPoint();
     }
 
     /**
@@ -103,6 +103,8 @@ public class RockScissorPaper extends javax.swing.JFrame {
         GameName = new javax.swing.JLabel();
         TimerLabel = new javax.swing.JLabel();
         InputButtonValue = new javax.swing.JLabel();
+        ppoint = new javax.swing.JLabel();
+        ComputerValue = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         gameStartButton = new javax.swing.JButton();
         CountNum = new javax.swing.JLabel();
@@ -288,7 +290,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
 
         GameName.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         GameName.setText("GameLabel");
-        GameLabelPanel.add(GameName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 250, 30));
+        GameLabelPanel.add(GameName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 220, 30));
 
         TimerLabel.setBackground(new java.awt.Color(255, 255, 255));
         TimerLabel.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
@@ -300,7 +302,18 @@ public class RockScissorPaper extends javax.swing.JFrame {
         InputButtonValue.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         InputButtonValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         InputButtonValue.setText("1를 누르세요");
-        GameLabelPanel.add(InputButtonValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 8, 280, 30));
+        GameLabelPanel.add(InputButtonValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 8, 240, 30));
+
+        ppoint.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
+        ppoint.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ppoint.setText("점수 0점");
+        GameLabelPanel.add(ppoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 150, 30));
+
+        ComputerValue.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
+        ComputerValue.setForeground(new java.awt.Color(255, 102, 102));
+        ComputerValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ComputerValue.setText("(보)");
+        GameLabelPanel.add(ComputerValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 70, 40));
 
         getContentPane().add(GameLabelPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 810, 40));
 
@@ -436,8 +449,9 @@ public class RockScissorPaper extends javax.swing.JFrame {
     }//GEN-LAST:event_RestartActionPerformed
     public void NumButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-                System.out.println(StartNum);
-                System.out.println("값 맞음");
+        if(InputButtonValue.getText().equals("이기세요")) {
+            
+        }
                 System.out.println(buttons[ButtonX].getBorder().equals(idBorder));
                 if(buttons[ButtonX].getBorder().equals(idBorder)) {
                     buttons[ButtonX].setBorder(idBorder2);
@@ -453,10 +467,12 @@ public class RockScissorPaper extends javax.swing.JFrame {
 
                 InputButtonValue.setVisible(true);
                 InputButtonValue.setText(StartNum + "를 누르세요");
-                check();
                 countNum();
                 shuffle();
                intToString();
+               ++count;
+               setCount(count);
+               updateCurrentPoint();
               //  System.out.println("카운트");
             
         }
@@ -467,8 +483,11 @@ public class RockScissorPaper extends javax.swing.JFrame {
         if(count2<2) {
           count2++; 
         } else {
-            count = 0;
+            count2 = 0;
         }
+    }
+    private void updateCurrentPoint() {
+        ppoint.setText("현재 : "+String.valueOf(count) + "점");
     }
     private void intToString() {
         for(int i=0;i<3;i++) {
@@ -479,6 +498,8 @@ public class RockScissorPaper extends javax.swing.JFrame {
             } else {
                 buttons[i].setText("보");
             }
+            
+            
         }
         
         for(int i=0;i<3;i++) {
@@ -492,7 +513,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
         }
     }
     public void check() {
-        if(StartNum == 51) {
+        if(realTime >= 60000) {
             win();
         }
     }
@@ -536,6 +557,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
         str = dayTime.format(new Date(realTime));
         System.out.println(realTime);
         TimerLabel.setText(String.valueOf(str));  
+        check();
         }
         
     }
@@ -595,7 +617,6 @@ public class RockScissorPaper extends javax.swing.JFrame {
                  
                 }
             });
-                count++;  
                 }
           intToString(); 
     }
@@ -603,10 +624,10 @@ public class RockScissorPaper extends javax.swing.JFrame {
     System.out.println("승리");
     gameTimer.cancel();
     getRank();
-    if(name!="게스트" && (sqlSaveRealTime < Integer.parseInt(currentPoint))) {
+    if(name!="게스트" && (count > Integer.parseInt(currentPoint))) {
        updateRank(); // 최고기록 갱신
        System.out.println("최고 기록 갱신");
-       BestRecord bt = new BestRecord();
+       BestRecord2 bt = new BestRecord2();
        bt.setVisible(true);
     } else {
         if(name!="게스트") {
@@ -614,7 +635,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
            updatePoint();
            setCurrentTimer(str);
            System.out.println(str);
-           NotRecord not = new NotRecord();
+           NotRecord2 not = new NotRecord2();
            not.setVisible(true);
         } else {
         System.out.println("게스트는 랭킹 등록 불가");
@@ -643,29 +664,22 @@ public class RockScissorPaper extends javax.swing.JFrame {
         }
     }
     private void updateRank() {
-        PreparedStatement st , st2 ,st3;
+        PreparedStatement st , st2;
         ResultSet rs;
         Time = TimerLabel.getText();
         System.out.println(Time);
-        String query = "UPDATE `users` SET `1TO50point`=? WHERE `nickname`=?"; // 랭킹 갱신
+        String query = "UPDATE `users` SET `rsppoint`=? WHERE `nickname`=?"; // 랭킹 갱신
         String query2 = "UPDATE `users` SET `point`=`point`+100 WHERE `nickname`=?"; // 포인트 추가
-        String query3 = "UPDATE `users` SET `1TO50value`=? WHERE `nickname`=?"; // 비교하기 쉽게 랭킹(타이머) int 값으로 저장
         try {
             st = My_CNX.getConnection().prepareStatement(query);
-            st.setString(1, String.valueOf(Time));
+            st.setString(1, String.valueOf(count));
             st.setString(2, name);
             st2 = My_CNX.getConnection().prepareStatement(query2);
             st2.setString(1, name);
-            st3 = My_CNX.getConnection().prepareStatement(query3);
-            st3.setString(1, String.valueOf(sqlSaveRealTime));
-            st3.setString(2, name);
             if(st.executeUpdate()!=0) { // 랭킹 갱신
             }
             if(st2.executeUpdate()!=0) { // 포인트 보상
                 getPoint(); // point 최신화
-            }
-            if(st3.executeUpdate()!=0) { // 점수 int 값으로
-             
             }
         }
            catch (SQLException ex) {
@@ -692,6 +706,12 @@ public class RockScissorPaper extends javax.swing.JFrame {
         }
 
     }
+    public int getCount() {
+        return this.count = count;
+    }
+    public void setCount(int count) {
+        this.count = count;
+    }
     public String getTime() {
         return this.Time = Time;
     }
@@ -699,7 +719,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
         PreparedStatement st;
         ResultSet rs;
         
-        String query = "SELECT `nickname` ,`1TO50value` FROM `users` WHERE `nickname`=? AND `1TO50value` IS NOT NULL";
+        String query = "SELECT `nickname` ,`rsppoint` FROM `users` WHERE `nickname`=? AND `rsppoint` IS NOT NULL";
         
         try {
             st = My_CNX.getConnection().prepareStatement(query);
@@ -707,7 +727,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
             rs = st.executeQuery();
             
             if(rs.next()) {
-                currentPoint = rs.getString("1TO50value");
+                currentPoint = rs.getString("rsppoint");
                 System.out.println("전적 불러오기 완료");
             } else {
                 if(name != "게스트") {
@@ -793,6 +813,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BackKey;
     private javax.swing.JLabel Close;
+    private javax.swing.JLabel ComputerValue;
     private javax.swing.JLabel CountNum;
     private javax.swing.JButton GameExplain;
     private javax.swing.JPanel GameLabelPanel;
@@ -810,5 +831,6 @@ public class RockScissorPaper extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel pointLabel;
+    private javax.swing.JLabel ppoint;
     // End of variables declaration//GEN-END:variables
 }
