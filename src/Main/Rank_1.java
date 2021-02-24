@@ -18,6 +18,7 @@ import Login.Login;
 import Main.Lobby;
 import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
+import Game.oneTo50;
 /**
  *
  * @author 박주형
@@ -32,15 +33,24 @@ public class Rank_1 extends javax.swing.JFrame {
     int mouseX;
     int mouseY;
     Lobby lobby = new Lobby();
+    oneTo50 game1 = new oneTo50();
     public String nicknameValue = lobby.name;
-    String Subjectm = "등수#닉네임#시간";
+    String Subjectm = "등수#닉네임#최고 기록";
         
    
     public Rank_1() {
         initComponents();
-        NickName.setText(nicknameValue + "님 포인트는" + lobby.point +"점입니다");
        // System.out.println(nicknameValue);
         getRank();
+        if(nicknameValue!= "게스트") {
+            if(game1.getBestTime() == "1000000") {
+               NickName.setText(nicknameValue+"님 전적이 존재하지 않습니다");
+            } else {
+             NickName.setText(nicknameValue+"님 기록은 " + game1.getBestTime() +"초입니다");
+            }
+        } else {
+          NickName.setText("게스트는 랭킹을 지원하지 않습니다");
+        }
     }
 
     /**
@@ -81,8 +91,9 @@ public class Rank_1 extends javax.swing.JFrame {
         MainPanel.add(LoginLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 280, -1));
 
         RegisterButton.setBackground(new java.awt.Color(0, 84, 140));
+        RegisterButton.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         RegisterButton.setForeground(new java.awt.Color(255, 255, 255));
-        RegisterButton.setText("회원가입");
+        RegisterButton.setText("확인");
         RegisterButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         RegisterButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -179,7 +190,7 @@ public class Rank_1 extends javax.swing.JFrame {
         NickName.setText("박주형님");
         MainPanel.add(NickName, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 220, 20));
 
-        RankTable.setFont(new java.awt.Font("굴림", 0, 18)); // NOI18N
+        RankTable.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         RankTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -191,6 +202,8 @@ public class Rank_1 extends javax.swing.JFrame {
         RankTable.setToolTipText("Rank");
         RankTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         RankTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        RankTable.setEnabled(false);
+        RankTable.setFocusable(false);
         jScrollPane1.setViewportView(RankTable);
 
         MainPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
@@ -220,6 +233,7 @@ public class Rank_1 extends javax.swing.JFrame {
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_RegisterButtonActionPerformed
 
     private void MinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizeMouseClicked
@@ -287,7 +301,7 @@ public class Rank_1 extends javax.swing.JFrame {
         ResultSet rs;
         String nickname = nicknameValue;
         
-        String query = "SELECT `nickname`,`rpspoint` FROM `users` WHERE `rpspoint` is NOT NULL ORDER BY `rpspoint` DESC";
+        String query = "SELECT `nickname`,`1TO50point` FROM `users` WHERE `1TO50point` is NOT NULL ORDER BY `1TO50point` ASC";
         int rankVisibleValue = 30; // 랭킹을 몇등까지 표시할꺼니
         String[] ids = new String [rankVisibleValue];
         String[] points = new String [rankVisibleValue];
@@ -300,13 +314,14 @@ public class Rank_1 extends javax.swing.JFrame {
             while(rs.next()) {
 
                  ids[count] = rs.getString("nickname");
-                 points[count] = rs.getString("rpspoint");
+                 points[count] = rs.getString("1TO50point");
                //  idAndPoint[0][count] = ids,points;
                  if(count <rankVisibleValue) {
                    count++;
-                 }
+                 } 
                
         }
+            
             Object row[][] =  new String[count][count];
             
             for(int i=0;i<count;i++) {
