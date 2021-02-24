@@ -50,11 +50,13 @@ public class RockScissorPaper extends javax.swing.JFrame {
     public static String name;
     public static String point;
     JButton[] buttons = new JButton[3];
-    int count = 0;
+    static int count = 0;
     int count2 = 0;
-    int StartNum = 1;
-    int rsp[] = new int[3]; // 초기 25개의 버튼에 넣을 숫자
-    int rspint[] = new int[3]; // 버튼 클릭시 들어갈 숫자
+    int rsp[] = new int[3]; // 가위 , 바위 ,보  버튼에 넣을 숫자
+    int rspint; // 버튼 클릭시 들어갈 숫자
+    int rspint2; // 버튼 클릭시 들어갈 숫자
+    String explain; // 이기세요 , 지세요 ,비기세요 글자 스트링값
+    String computerValue; // 가위 , 바위 ,보 
     Timer t = new Timer();
     Timer gameTimer = new Timer();
     public static String gameName = "머리쓰는 가위바위보";
@@ -63,20 +65,24 @@ public class RockScissorPaper extends javax.swing.JFrame {
     public long realTime;
     private String Time;
     public String currentPoint;
-    public static String currentPoint2;
     public static String str;
     private int sqlSaveRealTime;
-   Random r = new Random();
-   Border idBorder = BorderFactory.createMatteBorder(1, 1, 1, 20, new Color(255,153,153)); // 빨
-   Border idBorder2 = BorderFactory.createMatteBorder(1, 1, 1, 20, new Color(51,204,255)); // 파
+    SimpleDateFormat dayTime = new SimpleDateFormat("ss초");
+    Random r = new Random();
+    Border idBorder = BorderFactory.createMatteBorder(1, 1, 1, 20, new Color(255,153,153)); // 빨
+    Border idBorder2 = BorderFactory.createMatteBorder(1, 1, 1, 20, new Color(51,204,255)); // 파
+    
     public RockScissorPaper() {
         initComponents();
         getUserInfo(); // 포인트랑 닉네임 불러오기
         CountNum.setVisible(false);
         TimerLabel.setVisible(false);
         InputButtonValue.setVisible(false);
+        ppoint.setVisible(false);
         GameName.setText(gameName); // 게임 타이틀 지정
         updateCurrentPoint();
+        updateTopLabel();
+        
     }
 
     /**
@@ -104,10 +110,10 @@ public class RockScissorPaper extends javax.swing.JFrame {
         TimerLabel = new javax.swing.JLabel();
         InputButtonValue = new javax.swing.JLabel();
         ppoint = new javax.swing.JLabel();
-        ComputerValue = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         gameStartButton = new javax.swing.JButton();
         CountNum = new javax.swing.JLabel();
+        tipLabel = new javax.swing.JLabel();
         GamePanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -296,24 +302,19 @@ public class RockScissorPaper extends javax.swing.JFrame {
         TimerLabel.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
         TimerLabel.setForeground(new java.awt.Color(255, 102, 102));
         TimerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        TimerLabel.setText("00분 00초");
+        TimerLabel.setText("60초");
         GameLabelPanel.add(TimerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 2, 90, 40));
 
         InputButtonValue.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
+        InputButtonValue.setForeground(new java.awt.Color(255, 0, 0));
         InputButtonValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        InputButtonValue.setText("1를 누르세요");
-        GameLabelPanel.add(InputButtonValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 8, 240, 30));
+        InputButtonValue.setText("바위 이기세요");
+        GameLabelPanel.add(InputButtonValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 10, 190, 30));
 
         ppoint.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         ppoint.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ppoint.setText("점수 0점");
         GameLabelPanel.add(ppoint, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 10, 150, 30));
-
-        ComputerValue.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
-        ComputerValue.setForeground(new java.awt.Color(255, 102, 102));
-        ComputerValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ComputerValue.setText("(보)");
-        GameLabelPanel.add(ComputerValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 70, 40));
 
         getContentPane().add(GameLabelPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 810, 40));
 
@@ -335,6 +336,12 @@ public class RockScissorPaper extends javax.swing.JFrame {
         CountNum.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CountNum.setText("3");
         jPanel3.add(CountNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 105, 256, 252));
+
+        tipLabel.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
+        tipLabel.setForeground(new java.awt.Color(255, 51, 0));
+        tipLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tipLabel.setText("TIP : 주어진 60초내에 지시대로 최대한 행동하세요 , 틀린 행동시 5초 삭감됩니다.");
+        jPanel3.add(tipLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 340, 570, 30));
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 800, 510));
 
@@ -389,6 +396,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
 
     private void BackKeyMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackKeyMouseClicked
         // TODO add your handling code here:
+        count = 0; // 점수 초기화
         Lobby lobby = new Lobby();
         lobby.setVisible(true);
         this.dispose();
@@ -436,6 +444,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
         gameStart();
     }//GEN-LAST:event_gameStartButtonActionPerformed
     public void restart() {
+        count = 0; 
         t.cancel();
         gameTimer.cancel();
         RockScissorPaper ng = new RockScissorPaper();
@@ -449,37 +458,107 @@ public class RockScissorPaper extends javax.swing.JFrame {
     }//GEN-LAST:event_RestartActionPerformed
     public void NumButtonActionPerformed(java.awt.event.ActionEvent evt) {                                            
         // TODO add your handling code here:
-        if(InputButtonValue.getText().equals("이기세요")) {
-            
+        if(explain.equals("승리하세요")) {
+            if(computerValue == "가위") {
+                if(buttons[ButtonX].getText().equals("바위")) {
+                    ++count;
+                } else {
+                oldTime -= 5001; // 5초 증가
+                updateTime();
+                System.out.println("틀림");
+                }
+            } else if(computerValue == "바위") {
+                if(buttons[ButtonX].getText().equals("보")) {
+                    ++count;
+                } else {
+                    oldTime -= 5001; // 5초 증가
+                    updateTime();
+                    System.out.println("틀림");
+                }                
+            } else {
+                if(buttons[ButtonX].getText().equals("가위")) {
+                    ++count;
+                } else {
+                    oldTime -= 5001; // 5초 증가
+                    updateTime();
+                    System.out.println("틀림");
+                }
+            }
         }
-                System.out.println(buttons[ButtonX].getBorder().equals(idBorder));
+        if(explain.equals("비기세요")) {
+            if(computerValue == "가위") {
+                if(buttons[ButtonX].getText().equals("가위")) {
+                    ++count;
+                } else {
+                oldTime -= 5001; // 5초 증가
+                updateTime();
+                System.out.println("틀림");
+                }
+            } else if(computerValue == "바위") {
+                if(buttons[ButtonX].getText().equals("바위")) {
+                    ++count;
+                } else {
+                oldTime -= 5001; // 5초 증가
+                updateTime();
+                System.out.println("틀림");
+                }
+            } else {
+                if(buttons[ButtonX].getText().equals("보")) {
+                    ++count;
+                } else {
+                oldTime -= 5001; // 5초 증가
+                updateTime();
+                System.out.println("틀림");
+                }
+            }
+        }
+        if(explain.equals("패배하세요")) {
+            if(computerValue == "가위") {
+                if(buttons[ButtonX].getText().equals("보")) {
+                    ++count;
+                } else {
+                oldTime -= 5001; // 5초 증가
+                updateTime();
+                System.out.println("틀림");
+                }
+            } else if(computerValue == "바위") {
+                if(buttons[ButtonX].getText().equals("가위")) {
+                    ++count;
+                } else {
+                oldTime -= 5001; // 5초 증가
+                updateTime();
+                System.out.println("틀림");
+                }
+            } else {
+                if(buttons[ButtonX].getText().equals("바위")) {
+                    ++count;
+                } else {
+                oldTime -= 5001; // 5초 증가
+                updateTime();
+                System.out.println("틀림");
+                }
+            }
+            check(); // 승리 판별
+        }
+            // 버튼 Border 색상 변경
                 if(buttons[ButtonX].getBorder().equals(idBorder)) {
                     buttons[ButtonX].setBorder(idBorder2);
-                    System.out.println("진짜");
                 } else {
                     buttons[ButtonX].setBorder(idBorder);
                     System.out.println("가짜");
                 }
-                StartNum++;
-                buttons[ButtonX].setText(String.valueOf(rsp[count2]));
-                buttons[ButtonX].setBackground(Color.white);
-              
+            //////////////    
+                
+            
+                buttons[ButtonX].setText(String.valueOf(rsp[count2]));             
 
-                InputButtonValue.setVisible(true);
-                InputButtonValue.setText(StartNum + "를 누르세요");
                 countNum();
                 shuffle();
                intToString();
-               ++count;
-               setCount(count);
+               System.out.println(getCount());
                updateCurrentPoint();
-              //  System.out.println("카운트");
-            
         }
     private void countNum() {
-        if(StartNum == 4) {
-            StartNum = 1;
-        }
         if(count2<2) {
           count2++; 
         } else {
@@ -490,7 +569,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
         ppoint.setText("현재 : "+String.valueOf(count) + "점");
     }
     private void intToString() {
-        for(int i=0;i<3;i++) {
+        for(int i=0;i<3;i++) { // 3개의 버튼에 가위 , 바위 , 보 넣기
             if(buttons[i].getText().equals("1")) {
                 buttons[i].setText("가위");
             } else if (buttons[i].getText().equals("2")) {
@@ -502,19 +581,39 @@ public class RockScissorPaper extends javax.swing.JFrame {
             
         }
         
-        for(int i=0;i<3;i++) {
-            if(rspint[i] == 1) {
-                InputButtonValue.setText("이기세요");
-            } else if (rspint[i] == 2) {
-                 InputButtonValue.setText("지세요");
+            if(rspint == 0) { // 상단 설명
+                explain = "승리하세요";
+            } else if (rspint == 1) {
+                 explain = "비기세요";
             } else {
-                InputButtonValue.setText("비기세요");
+                explain = "패배하세요";
             }
-        }
+        
+        
+            if(rspint2 == 0) { // 상단 설명 : 컴퓨터 값
+                computerValue = "가위";
+            } else if (rspint2 == 1) {
+                 computerValue = "바위";
+            } else {
+                computerValue = "보";
+            }
+            
+            if(realTime<-60001) {
+                TimerLabel.setText("타임아웃!!");
+            }
+        updateTopLabel();
+    }
+    
+    private void updateTopLabel() {
+        InputButtonValue.setText("(" + computerValue + ") " + explain);
     }
     public void check() {
-        if(realTime >= 60000) {
+        System.out.println(realTime);
+        if(realTime < -60001) { //60초가 지나면 승리
+            gameTimer.cancel();
+            DeActiveButton(); // 버튼 클릭 비활성화
             win();
+            System.out.println("승리");
         }
     }
     private void getUserInfo() {
@@ -526,6 +625,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
     }
     private void gameStart() {
          CountDown();
+         tipLabel.setVisible(false);
          
     }
     private void CountDown () {
@@ -535,28 +635,28 @@ public class RockScissorPaper extends javax.swing.JFrame {
       
                  
     }
-    public String getCurrentTimer() {
-        return this.currentPoint2;
-    }
-    public void setCurrentTimer(String timer) {
-        this.currentPoint2 = timer;
-    }
     private void gameTimer () {      
           gameTimerCount gtc = new gameTimerCount();
-          gameTimer.scheduleAtFixedRate(gtc, 0, 1000);
+          oldTime = System.currentTimeMillis();      
+          gameTimer.scheduleAtFixedRate(gtc, 10, 1000);
                        
+    }
+    private void updateTime() { 
+        realTime = oldTime - currentTime;
+        str = dayTime.format(new Date(realTime));
+        TimerLabel.setText(String.valueOf(str));  
     }
      class gameTimerCount extends TimerTask {
 
         @Override
         public void run() {
         currentTime =  System.currentTimeMillis();
-        SimpleDateFormat dayTime = new SimpleDateFormat("mm분 ss초");
-        realTime = currentTime - oldTime;
+        realTime = oldTime - currentTime;
         sqlSaveRealTime = (int) realTime / 1000;
         str = dayTime.format(new Date(realTime));
-        System.out.println(realTime);
-        TimerLabel.setText(String.valueOf(str));  
+        if(realTime >=-60000) {
+          updateTime();    
+        }    
         check();
         }
         
@@ -581,11 +681,10 @@ public class RockScissorPaper extends javax.swing.JFrame {
     }
     private void makeMap() {
         // Game 화면 생성
-        oldTime = System.currentTimeMillis();      
         GamePanel.setLayout(new GridLayout(3,1));
         gameTimer(); // 게임 타이머 가동
-        for(int i=0; i<rsp.length;i++) {  //가위 바위 보 중복없이 버튼에 넣기
-         int temp = r.nextInt(3)+1;
+        for(int i=0; i<rsp.length;i++) {  //가위 바위 보 버튼에 중복없이 넣기
+         int temp = r.nextInt(3);
          rsp[i] = temp;
          for(int j=0;j<i;j++) {
              if(rsp[i] == rsp[j]) {
@@ -594,14 +693,16 @@ public class RockScissorPaper extends javax.swing.JFrame {
          }             
         }
         
-        for(int i=0; i<rspint.length;i++) {
-         int temp2 = r.nextInt(3)+1;
-         rspint[i] = temp2;
-        }
-        
-     
+        // 이기세요 , 지세요 , 비기세요 결정
+         int temp2 = r.nextInt(3);
+         rspint = temp2;
         
         
+
+         int temp3 = r.nextInt(3); // 가위 바위 보 결정
+         rspint2 = temp3;
+       
+
         for(int i=0;i<3;i++) {
             int tempI = i;  
                 buttons[i] = new JButton("");
@@ -618,12 +719,14 @@ public class RockScissorPaper extends javax.swing.JFrame {
                 }
             });
                 }
+          ppoint.setVisible(true);
           intToString(); 
     }
     private void win() {
     System.out.println("승리");
     gameTimer.cancel();
     getRank();
+    System.out.println(currentPoint);
     if(name!="게스트" && (count > Integer.parseInt(currentPoint))) {
        updateRank(); // 최고기록 갱신
        System.out.println("최고 기록 갱신");
@@ -633,21 +736,21 @@ public class RockScissorPaper extends javax.swing.JFrame {
         if(name!="게스트") {
            System.out.println("최고 기록을 갱신 못하셨습니다");
            updatePoint();
-           setCurrentTimer(str);
+           setCount(count);
            System.out.println(str);
            NotRecord2 not = new NotRecord2();
            not.setVisible(true);
         } else {
         System.out.println("게스트는 랭킹 등록 불가");
-        setCurrentTimer(str);
-        GuestRecord guestWin = new GuestRecord();
+        setCount(count);
+        GuestRecord2 guestWin = new GuestRecord2();
         guestWin.setVisible(true);
         }
     }
-            }
+  }
     private void shuffle() {
        for(int i=0; i<rsp.length;i++) {  //가위 바위 보 순서 바꾸기
-         int temp = r.nextInt(3)+1;
+         int temp = r.nextInt(3);
          rsp[i] = temp;
          for(int j=0;j<i;j++) {
              if(rsp[i] == rsp[j]) {
@@ -658,10 +761,14 @@ public class RockScissorPaper extends javax.swing.JFrame {
         for(int i=0;i<3;i++) {
              buttons[i].setText(String.valueOf(rsp[i])); // 버튼에 가위 바위 보 넣기
     }
-        for(int i=0; i<rspint.length;i++) {
-         int temp2 = r.nextInt(3)+1;
-         rspint[i] = temp2;
-        }
+        // 비기세요 지세요 이기세요 셔플
+         int temp2 = r.nextInt(3);
+         rspint = temp2;
+        
+        //가위 , 바위, 보 셔플
+         int temp3 = r.nextInt(3);
+         rspint2 = temp3;
+        
     }
     private void updateRank() {
         PreparedStatement st , st2;
@@ -707,7 +814,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
 
     }
     public int getCount() {
-        return this.count = count;
+        return this.count;
     }
     public void setCount(int count) {
         this.count = count;
@@ -732,7 +839,7 @@ public class RockScissorPaper extends javax.swing.JFrame {
             } else {
                 if(name != "게스트") {
                  System.out.println("존재하는 전적이 없습니다");
-                 currentPoint = "1000000";
+                 currentPoint = "-1";
                 } else {
                 currentPoint = "게스트 모드";
                 }
@@ -769,8 +876,14 @@ public class RockScissorPaper extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-     public String getBestTime() {
+     public String getBestPoint() {
      return this.currentPoint = currentPoint;
+     }
+     
+    private void DeActiveButton() {
+        for(int i=0;i<buttons.length;i++) {
+          buttons[i].setEnabled(false);
+        }
      }
     /**
      * @param args the command line arguments
@@ -813,7 +926,6 @@ public class RockScissorPaper extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BackKey;
     private javax.swing.JLabel Close;
-    private javax.swing.JLabel ComputerValue;
     private javax.swing.JLabel CountNum;
     private javax.swing.JButton GameExplain;
     private javax.swing.JPanel GameLabelPanel;
@@ -832,5 +944,6 @@ public class RockScissorPaper extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel pointLabel;
     private javax.swing.JLabel ppoint;
+    private javax.swing.JLabel tipLabel;
     // End of variables declaration//GEN-END:variables
 }
