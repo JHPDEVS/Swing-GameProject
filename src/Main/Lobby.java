@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 import Register.Register;
 import Main.Lobby;
 import Game.oneTo50;
+import Game.RockScissorPaper;
 /**
  *
  * @author 박주형
@@ -92,10 +93,13 @@ public class Lobby extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         RankButton = new javax.swing.JButton();
         pointLabel = new javax.swing.JLabel();
-        jPanel3 = new javax.swing.JPanel();
+        Info = new javax.swing.JButton();
+        Game1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        rpsStart = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        Game2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
+        GameStart1 = new javax.swing.JButton();
+        GameStart2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 153, 153));
@@ -103,6 +107,7 @@ public class Lobby extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel2MouseDragged(evt);
@@ -166,7 +171,7 @@ public class Lobby extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(BackKey)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1014, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1012, Short.MAX_VALUE)
                 .addComponent(Minimize)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Close)
@@ -179,20 +184,23 @@ public class Lobby extends javax.swing.JFrame {
                     .addComponent(Close)
                     .addComponent(Minimize)
                     .addComponent(BackKey))
-                .addGap(0, 1, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1100, 30));
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(249, 249, 249));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
+        NickNameLabel.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
         NickNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         NickNameLabel.setText("박주형님 환영합니다.");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/users-1.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/humen.png"))); // NOI18N
 
-        jButton1.setBackground(new java.awt.Color(51, 204, 255));
+        jButton1.setBackground(new java.awt.Color(0, 98, 157));
+        jButton1.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("상점 (준비중)");
         jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -202,7 +210,8 @@ public class Lobby extends javax.swing.JFrame {
             }
         });
 
-        RankButton.setBackground(new java.awt.Color(51, 204, 255));
+        RankButton.setBackground(new java.awt.Color(213, 89, 91));
+        RankButton.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         RankButton.setForeground(new java.awt.Color(255, 255, 255));
         RankButton.setText("랭킹");
         RankButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -212,31 +221,45 @@ public class Lobby extends javax.swing.JFrame {
             }
         });
 
+        pointLabel.setFont(new java.awt.Font("굴림", 1, 12)); // NOI18N
         pointLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pointLabel.setText("포인트");
+
+        Info.setBackground(new java.awt.Color(51, 204, 255));
+        Info.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
+        Info.setForeground(new java.awt.Color(255, 255, 255));
+        Info.setText("정보");
+        Info.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        Info.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InfoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(RankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(30, 30, 30)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addGap(44, 44, 44)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(NickNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addGap(10, 10, 10)
-                                            .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGap(0, 0, Short.MAX_VALUE))))))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(44, 44, 44)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(NickNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(RankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Info, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(23, 23, 23))
         );
         jPanel1Layout.setVerticalGroup(
@@ -250,66 +273,94 @@ public class Lobby extends javax.swing.JFrame {
                 .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(18, 18, 18)
                 .addComponent(RankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addComponent(Info, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(43, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 290, 540));
 
-        jPanel3.setBackground(new java.awt.Color(255, 204, 204));
+        Game1.setBackground(new java.awt.Color(255, 204, 204));
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/게임배경1_001.png"))); // NOI18N
         jLabel3.setText("1 to 50");
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(57, Short.MAX_VALUE))
+        javax.swing.GroupLayout Game1Layout = new javax.swing.GroupLayout(Game1);
+        Game1.setLayout(Game1Layout);
+        Game1Layout.setHorizontalGroup(
+            Game1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, Short.MAX_VALUE)
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(jLabel3)
-                .addContainerGap(95, Short.MAX_VALUE))
+        Game1Layout.setVerticalGroup(
+            Game1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(Game1Layout.createSequentialGroup()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, 190, 160));
+        getContentPane().add(Game1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 360, 360));
 
-        rpsStart.setBackground(new java.awt.Color(204, 255, 204));
-        rpsStart.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        rpsStart.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rpsStartMouseClicked(evt);
+        Game2.setBackground(new java.awt.Color(255, 204, 204));
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/가위바위보_001.png"))); // NOI18N
+        jLabel4.setText("가위바위보");
+
+        javax.swing.GroupLayout Game2Layout = new javax.swing.GroupLayout(Game2);
+        Game2.setLayout(Game2Layout);
+        Game2Layout.setHorizontalGroup(
+            Game2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, Short.MAX_VALUE)
+        );
+        Game2Layout.setVerticalGroup(
+            Game2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 360, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(Game2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 80, 360, 360));
+
+        GameStart1.setBackground(new java.awt.Color(153, 153, 255));
+        GameStart1.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
+        GameStart1.setForeground(new java.awt.Color(255, 255, 255));
+        GameStart1.setText("게임시작");
+        GameStart1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                GameStart1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                GameStart1MouseExited(evt);
             }
         });
+        GameStart1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GameStart1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(GameStart1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 440, 360, 50));
 
-        jLabel2.setText("게임참가");
+        GameStart2.setBackground(new java.awt.Color(255, 153, 153));
+        GameStart2.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
+        GameStart2.setForeground(new java.awt.Color(255, 255, 255));
+        GameStart2.setText("게임시작");
+        GameStart2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                GameStart2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                GameStart2MouseExited(evt);
+            }
+        });
+        GameStart2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                GameStart2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(GameStart2, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 440, 360, 50));
 
-        javax.swing.GroupLayout rpsStartLayout = new javax.swing.GroupLayout(rpsStart);
-        rpsStart.setLayout(rpsStartLayout);
-        rpsStartLayout.setHorizontalGroup(
-            rpsStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, rpsStartLayout.createSequentialGroup()
-                .addContainerGap(58, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
-        );
-        rpsStartLayout.setVerticalGroup(
-            rpsStartLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(rpsStartLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        getContentPane().add(rpsStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 220, 190, 30));
-
-        setSize(new java.awt.Dimension(1099, 574));
+        setSize(new java.awt.Dimension(1099, 566));
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -380,17 +431,48 @@ public class Lobby extends javax.swing.JFrame {
         rank.setVisible(true);
     }//GEN-LAST:event_RankButtonActionPerformed
 
-    private void rpsStartMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rpsStartMouseClicked
-        // TODO add your handling code here:
-        oneTo50 rps = new oneTo50();
-        rps.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_rpsStartMouseClicked
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "상점 구현중입니다","준비중", 1);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void InfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InfoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_InfoActionPerformed
+
+    private void GameStart1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GameStart1ActionPerformed
+        // TODO add your handling code here:
+        oneTo50 game1 = new oneTo50();
+        game1.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_GameStart1ActionPerformed
+
+    private void GameStart2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GameStart2ActionPerformed
+        // TODO add your handling code here:
+        RockScissorPaper game2 = new RockScissorPaper();
+        game2.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_GameStart2ActionPerformed
+
+    private void GameStart1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GameStart1MouseEntered
+        // TODO add your handling code here:
+        GameStart1.setBackground(new Color(204,204,255));
+    }//GEN-LAST:event_GameStart1MouseEntered
+
+    private void GameStart1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GameStart1MouseExited
+        // TODO add your handling code here:
+        GameStart1.setBackground(new Color(153,153,255));
+    }//GEN-LAST:event_GameStart1MouseExited
+
+    private void GameStart2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GameStart2MouseEntered
+        // TODO add your handling code here:
+        GameStart2.setBackground(new Color(255,204,204));
+    }//GEN-LAST:event_GameStart2MouseEntered
+
+    private void GameStart2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GameStart2MouseExited
+        // TODO add your handling code here:
+        GameStart2.setBackground(new Color(255,153,153));
+    }//GEN-LAST:event_GameStart2MouseExited
    public String getNick() {
        return this.name;
    }
@@ -432,17 +514,20 @@ public class Lobby extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel BackKey;
     private javax.swing.JLabel Close;
+    private javax.swing.JPanel Game1;
+    private javax.swing.JPanel Game2;
+    private javax.swing.JButton GameStart1;
+    private javax.swing.JButton GameStart2;
+    private javax.swing.JButton Info;
     private javax.swing.JLabel Minimize;
     private javax.swing.JLabel NickNameLabel;
     private javax.swing.JButton RankButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel pointLabel;
-    private javax.swing.JPanel rpsStart;
     // End of variables declaration//GEN-END:variables
 }
