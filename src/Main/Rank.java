@@ -16,6 +16,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import Login.Login;
 import Main.Lobby;
+import static Main.Lobby.name;
+import static Main.Lobby.point;
 import java.util.Arrays;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -35,8 +37,8 @@ public class Rank extends javax.swing.JFrame {
     public String nicknameValue = lobby.name;
     public Rank() {
         initComponents();
-        NickName.setText(nicknameValue + "님 포인트는" + lobby.point +"점입니다");
        // System.out.println(nicknameValue);
+        getPoint();
         getRank();
     }
 
@@ -78,8 +80,9 @@ public class Rank extends javax.swing.JFrame {
         MainPanel.add(LoginLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 130, -1));
 
         RegisterButton.setBackground(new java.awt.Color(0, 84, 140));
+        RegisterButton.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         RegisterButton.setForeground(new java.awt.Color(255, 255, 255));
-        RegisterButton.setText("회원가입");
+        RegisterButton.setText("확인");
         RegisterButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         RegisterButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -176,7 +179,7 @@ public class Rank extends javax.swing.JFrame {
         NickName.setText("박주형님");
         MainPanel.add(NickName, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 220, 20));
 
-        RankTable.setFont(new java.awt.Font("굴림", 0, 18)); // NOI18N
+        RankTable.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         RankTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -185,9 +188,11 @@ public class Rank extends javax.swing.JFrame {
 
             }
         ));
-        RankTable.setToolTipText("Rank");
+        RankTable.setToolTipText("Ranking");
         RankTable.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         RankTable.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        RankTable.setEnabled(false);
+        RankTable.setFocusable(false);
         jScrollPane1.setViewportView(RankTable);
 
         MainPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, -1, -1));
@@ -217,8 +222,35 @@ public class Rank extends javax.swing.JFrame {
 
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
         // TODO add your handling code here:
+        this.dispose();
     }//GEN-LAST:event_RegisterButtonActionPerformed
-
+ private void getPoint() {
+        PreparedStatement st;
+        ResultSet rs;
+        
+        String query = "SELECT `nickname` ,`point` FROM `users` WHERE `nickname`=?";
+        
+        try {
+            st = My_CNX.getConnection().prepareStatement(query);
+            st.setString(1, name);
+            rs = st.executeQuery();
+            
+            if(rs.next()) {
+                point = rs.getString("point");
+                NickName.setText(nicknameValue + "님 포인트는 " + point +"점입니다");
+                System.out.println("포인트 불러오기 완료");
+                
+            } else {
+                if(nicknameValue == "게스트") {
+                 NickName.setText(nicknameValue + "는 랭킹을 지원하지 않습니다");
+                }
+            }
+        }
+                catch (SQLException ex) {
+                
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     private void MinimizeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MinimizeMouseClicked
         // TODO add your handling code here:
         this.setState(Rank.ICONIFIED);
