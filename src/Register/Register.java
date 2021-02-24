@@ -105,7 +105,7 @@ public class Register extends javax.swing.JFrame {
         });
         MainPanel.add(ageField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 350, 280, 20));
 
-        RegisterButton.setBackground(new java.awt.Color(0, 84, 140));
+        RegisterButton.setBackground(new java.awt.Color(0, 98, 157));
         RegisterButton.setForeground(new java.awt.Color(255, 255, 255));
         RegisterButton.setText("회원가입");
         RegisterButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -301,7 +301,7 @@ public class Register extends javax.swing.JFrame {
 
     private void CloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseMouseClicked
         // TODO add your handling code here:
-        System.exit(0);
+        this.dispose();
     }//GEN-LAST:event_CloseMouseClicked
 
     private void CloseMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CloseMouseEntered

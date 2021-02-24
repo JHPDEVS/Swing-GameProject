@@ -133,7 +133,7 @@
         <Component class="javax.swing.JButton" name="RegisterButton">
           <Properties>
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="8c" green="54" red="0" type="rgb"/>
+              <Color blue="9d" green="62" red="0" type="rgb"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
