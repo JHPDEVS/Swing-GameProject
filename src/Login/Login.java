@@ -56,6 +56,7 @@ public class Login extends javax.swing.JFrame {
         LoginButton = new javax.swing.JButton();
         RegisterButton = new javax.swing.JButton();
         PasswordField = new javax.swing.JPasswordField();
+        guestLogin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -94,7 +95,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/lOGIN2.png"))); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/배경_001.png"))); // NOI18N
         jLabel1.setText("jLabel1");
 
         javax.swing.GroupLayout RightPanelLayout = new javax.swing.GroupLayout(RightPanel);
@@ -153,9 +155,9 @@ public class Login extends javax.swing.JFrame {
         MainPanel.setPreferredSize(new java.awt.Dimension(1100, 622));
         MainPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        LoginLabel.setFont(new java.awt.Font("나눔스퀘어라운드 Regular", 1, 36)); // NOI18N
+        LoginLabel.setFont(new java.awt.Font("굴림", 1, 36)); // NOI18N
         LoginLabel.setText("로그인");
-        MainPanel.add(LoginLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, -1, -1));
+        MainPanel.add(LoginLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, -1, -1));
 
         IDField.setForeground(new java.awt.Color(204, 204, 204));
         IDField.setText("아이디");
@@ -169,13 +171,22 @@ public class Login extends javax.swing.JFrame {
         });
         MainPanel.add(IDField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 280, 50));
 
-        LoginButton.setBackground(new java.awt.Color(0, 84, 140));
-        LoginButton.setForeground(new java.awt.Color(255, 255, 255));
-        LoginButton.setText("로그인");
+        LoginButton.setBackground(new java.awt.Color(0, 98, 157));
+        LoginButton.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        LoginButton.setForeground(new java.awt.Color(249, 249, 249));
+        LoginButton.setText(">");
         LoginButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        LoginButton.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                LoginButtonFocusGained(evt);
+            }
+        });
         LoginButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 LoginButtonMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                LoginButtonMouseExited(evt);
             }
         });
         LoginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -183,16 +194,24 @@ public class Login extends javax.swing.JFrame {
                 LoginButtonActionPerformed(evt);
             }
         });
-        MainPanel.add(LoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 110, 90));
+        MainPanel.add(LoginButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 330, 80, 70));
 
+        RegisterButton.setBackground(new java.awt.Color(213, 89, 91));
+        RegisterButton.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        RegisterButton.setForeground(new java.awt.Color(249, 249, 249));
         RegisterButton.setText("계정생성");
         RegisterButton.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        RegisterButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                RegisterButtonMouseEntered(evt);
+            }
+        });
         RegisterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RegisterButtonActionPerformed(evt);
             }
         });
-        MainPanel.add(RegisterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 470, 152, 40));
+        MainPanel.add(RegisterButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 450, 152, 40));
 
         PasswordField.setForeground(new java.awt.Color(204, 204, 204));
         PasswordField.setText("password");
@@ -205,6 +224,28 @@ public class Login extends javax.swing.JFrame {
             }
         });
         MainPanel.add(PasswordField, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 240, 280, 50));
+
+        guestLogin.setFont(new java.awt.Font("굴림", 1, 11)); // NOI18N
+        guestLogin.setForeground(new java.awt.Color(204, 204, 204));
+        guestLogin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        guestLogin.setText("게스트로 시작하기");
+        guestLogin.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                guestLoginFocusGained(evt);
+            }
+        });
+        guestLogin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                guestLoginMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                guestLoginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                guestLoginMouseExited(evt);
+            }
+        });
+        MainPanel.add(guestLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 500, 160, -1));
 
         getContentPane().add(MainPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1090, 568));
 
@@ -308,7 +349,6 @@ public class Login extends javax.swing.JFrame {
             
             if(rs.next()) {
                Nick = rs.getString("nickname");
-               Point = rs.getString("point");
                System.out.println(Nick);
                 Lobby lobby = new Lobby();
                 lobby.setVisible(true);
@@ -333,8 +373,7 @@ public class Login extends javax.swing.JFrame {
     private void RegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegisterButtonActionPerformed
         // TODO add your handling code here:
            Register register = new Register();
-                register.setVisible(true);
-                this.dispose();
+           register.setVisible(true);
     }//GEN-LAST:event_RegisterButtonActionPerformed
 
     private void TopPanelMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TopPanelMouseDragged
@@ -352,6 +391,44 @@ public class Login extends javax.swing.JFrame {
         mouseX = evt.getX();
         mouseY = evt.getY();
     }//GEN-LAST:event_TopPanelMousePressed
+
+    private void guestLoginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestLoginMouseClicked
+        // TODO add your handling code here:
+          int ans = JOptionPane.showConfirmDialog(this, "게스트로 로그인 하시면 \n 랭킹 등록 및 포인트 획득이 불가능합니다", "확인", JOptionPane.YES_NO_OPTION, 1);
+          if(ans == 0) {
+          Nick = "게스트";
+          Lobby lobby = new Lobby();
+          lobby.setVisible(true);
+          this.dispose();
+          }
+    }//GEN-LAST:event_guestLoginMouseClicked
+
+    private void guestLoginFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_guestLoginFocusGained
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_guestLoginFocusGained
+
+    private void guestLoginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestLoginMouseEntered
+        // TODO add your handling code here:
+        guestLogin.setForeground(Color.BLACK);
+    }//GEN-LAST:event_guestLoginMouseEntered
+
+    private void guestLoginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_guestLoginMouseExited
+        // TODO add your handling code here:
+        guestLogin.setForeground(Color.gray);
+    }//GEN-LAST:event_guestLoginMouseExited
+
+    private void RegisterButtonMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_RegisterButtonMouseEntered
+
+    }//GEN-LAST:event_RegisterButtonMouseEntered
+
+    private void LoginButtonMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoginButtonMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LoginButtonMouseExited
+
+    private void LoginButtonFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_LoginButtonFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LoginButtonFocusGained
 
     /**
      * @param args the command line arguments
@@ -399,6 +476,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JButton RegisterButton;
     private javax.swing.JPanel RightPanel;
     private javax.swing.JPanel TopPanel;
+    private javax.swing.JLabel guestLogin;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
