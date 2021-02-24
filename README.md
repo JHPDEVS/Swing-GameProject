@@ -3,11 +3,16 @@
 **[로그인 Login]**  
 ![로그인](https://user-images.githubusercontent.com/30117732/109018291-52072180-76fb-11eb-86b0-11f4ae50e1e1.gif)
 [Login.java](https://github.com/JHPDEVS/JFrame-GameProject/tree/master/src/Login)
-**[회원가입]**  
+
+ 
+**[회원가입 Register]**  
 ![회원가입 로그인](https://user-images.githubusercontent.com/30117732/109018937-e2456680-76fb-11eb-825a-33e8885a0b83.gif)
+[Register.java](https://github.com/JHPDEVS/JFrame-GameProject/blob/master/src/Register/Register.java)
+
 
 **[로비]**  
 ![lobby](https://user-images.githubusercontent.com/30117732/109019176-191b7c80-76fc-11eb-9e7f-32465355d718.gif)
+[Lobby.java](https://github.com/JHPDEVS/JFrame-GameProject/blob/master/src/Main/Lobby.java)
 
 **[1TO50]**  
 ![oneTo50](https://user-images.githubusercontent.com/30117732/109019736-9d6dff80-76fc-11eb-9310-a5861a28b820.gif)
