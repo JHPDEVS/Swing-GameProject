@@ -60,7 +60,6 @@ public class oneto50Explain extends javax.swing.JFrame {
         Minimize = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         label1 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -182,9 +181,6 @@ public class oneto50Explain extends javax.swing.JFrame {
         label1.setText("1부터 50까지의 숫자를 찾아서 순서대로 누르세요!");
         label1.setToolTipText("게임설명");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/animat-pencil-color.gif"))); // NOI18N
-        jLabel1.setText("jLabel1");
-
         jLabel2.setFont(new java.awt.Font("굴림", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 102, 102));
         jLabel2.setText("최고 기록 달성시 100 포인트 , 그 이외 50포인트");
@@ -193,12 +189,8 @@ public class oneto50Explain extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(189, 189, 189)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(204, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(44, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,9 +206,7 @@ public class oneto50Explain extends javax.swing.JFrame {
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(44, 44, 44)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         MainPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 440, 330));
@@ -353,7 +343,6 @@ public class oneto50Explain extends javax.swing.JFrame {
     private javax.swing.JPanel MainPanel;
     private javax.swing.JLabel Minimize;
     private javax.swing.JButton RegisterButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
