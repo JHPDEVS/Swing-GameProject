@@ -1,4 +1,4 @@
-# JFrmae-GameProject 
+# JFrame-GameProject 
 
 ### DOWNLOAD JAR (zip)
 [DOWNLOAD](https://eatx.shop/%EB%B0%A9%ED%95%99%EA%B3%BC%EC%A0%9C/BrainGame.zip)
