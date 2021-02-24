@@ -61,7 +61,6 @@ public class RSPExplain extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         label1 = new javax.swing.JLabel();
         label2 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -188,9 +187,6 @@ public class RSPExplain extends javax.swing.JFrame {
         label2.setText("틀릴시 시간이 5초 감소됩니다");
         label2.setToolTipText("게임설명");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/animat-pencil-color.gif"))); // NOI18N
-        jLabel1.setText("jLabel1");
-
         jLabel2.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 102, 102));
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -203,13 +199,9 @@ public class RSPExplain extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(40, 40, 40)
-                            .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(189, 189, 189)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(40, 40, 40)
+                        .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -225,9 +217,7 @@ public class RSPExplain extends javax.swing.JFrame {
                 .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         MainPanel.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 440, 330));
@@ -366,7 +356,6 @@ public class RSPExplain extends javax.swing.JFrame {
     private javax.swing.JPanel MainPanel;
     private javax.swing.JLabel Minimize;
     private javax.swing.JButton RegisterButton;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

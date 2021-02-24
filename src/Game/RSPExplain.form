@@ -208,15 +208,9 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Component id="label2" min="-2" pref="363" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" attributes="0">
-                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                  <Component id="label1" min="-2" pref="363" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="189" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" min="-2" pref="47" max="-2" attributes="0"/>
-                              </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                              <Component id="label1" min="-2" pref="363" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="37" max="32767" attributes="0"/>
@@ -237,9 +231,7 @@
                       <Component id="label2" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="14" max="32767" attributes="0"/>
-                      <Component id="jLabel1" min="-2" pref="71" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                      <EmptySpace pref="119" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -263,14 +255,6 @@
                 <Property name="horizontalAlignment" type="int" value="0"/>
                 <Property name="text" type="java.lang.String" value="&#xd2c0;&#xb9b4;&#xc2dc; &#xc2dc;&#xac04;&#xc774; 5&#xcd08; &#xac10;&#xc18c;&#xb429;&#xb2c8;&#xb2e4;"/>
                 <Property name="toolTipText" type="java.lang.String" value="&#xac8c;&#xc784;&#xc124;&#xba85;"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel1">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/Img/animat-pencil-color.gif"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="jLabel1"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel2">
