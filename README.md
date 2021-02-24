@@ -20,5 +20,10 @@
 
 **[최고기록]**  
 ![BestRank](https://user-images.githubusercontent.com/30117732/109020621-782dc100-76fd-11eb-965a-b8280ebc556a.gif)
+
+
+**[게스트 모드]**  
+![guestmode](https://user-images.githubusercontent.com/30117732/109021010-d5297700-76fd-11eb-8f6e-1747f031b80e.gif)
+
 * we need mysql-connector-java-8.0.2.3.jar AND AbsoluteLayout.jar 
 * jdk8 
