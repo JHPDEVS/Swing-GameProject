@@ -22,6 +22,7 @@ import Main.Lobby;
 import static Main.Lobby.name;
 import static Main.Lobby.point;
 import Main.Rank_1;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
@@ -70,6 +71,7 @@ public class oneTo50 extends javax.swing.JFrame {
         getUserInfo(); // 포인트랑 닉네임 불러오기
         CountNum.setVisible(false);
         TimerLabel.setVisible(false);
+        InputButtonValue.setVisible(false);
         GameName.setText(gameName); // 게임 타이틀 지정
         
     }
@@ -97,9 +99,11 @@ public class oneTo50 extends javax.swing.JFrame {
         GameLabelPanel = new javax.swing.JPanel();
         GameName = new javax.swing.JLabel();
         TimerLabel = new javax.swing.JLabel();
+        InputButtonValue = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         gameStartButton = new javax.swing.JButton();
         CountNum = new javax.swing.JLabel();
+        tipLabel = new javax.swing.JLabel();
         GamePanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -107,6 +111,7 @@ public class oneTo50 extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
             public void mouseDragged(java.awt.event.MouseEvent evt) {
                 jPanel2MouseDragged(evt);
@@ -188,15 +193,18 @@ public class oneTo50 extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
-        jPanel1.setBackground(new java.awt.Color(153, 153, 153));
+        jPanel1.setBackground(new java.awt.Color(249, 249, 249));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        NickNameLabel.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
         NickNameLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         NickNameLabel.setText("박주형님 환영합니다.");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/users-1.png"))); // NOI18N
-        jLabel1.setText("jLabel1");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/humen.png"))); // NOI18N
 
-        RankButton.setBackground(new java.awt.Color(51, 204, 255));
+        RankButton.setBackground(new java.awt.Color(0, 98, 157));
+        RankButton.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         RankButton.setForeground(new java.awt.Color(255, 255, 255));
         RankButton.setText("1 TO 50 랭킹");
         RankButton.addActionListener(new java.awt.event.ActionListener() {
@@ -205,10 +213,12 @@ public class oneTo50 extends javax.swing.JFrame {
             }
         });
 
+        pointLabel.setFont(new java.awt.Font("굴림", 1, 12)); // NOI18N
         pointLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pointLabel.setText("포인트");
 
         GameExplain.setBackground(new java.awt.Color(51, 204, 255));
+        GameExplain.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         GameExplain.setForeground(new java.awt.Color(255, 255, 255));
         GameExplain.setText("게임 설명");
         GameExplain.addActionListener(new java.awt.event.ActionListener() {
@@ -218,6 +228,7 @@ public class oneTo50 extends javax.swing.JFrame {
         });
 
         Restart.setBackground(new java.awt.Color(255, 153, 153));
+        Restart.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         Restart.setForeground(new java.awt.Color(255, 255, 255));
         Restart.setText("다시하기");
         Restart.addActionListener(new java.awt.event.ActionListener() {
@@ -238,10 +249,10 @@ public class oneTo50 extends javax.swing.JFrame {
                             .addComponent(NickNameLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGap(10, 10, 10)
-                                        .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
@@ -259,8 +270,8 @@ public class oneTo50 extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(NickNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(1, 1, 1)
-                .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(pointLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addComponent(RankButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(GameExplain, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -271,84 +282,67 @@ public class oneTo50 extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, -1));
 
+        GameLabelPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        GameName.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
         GameName.setText("GameLabel");
+        GameLabelPanel.add(GameName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 127, 30));
 
-        TimerLabel.setText("00:00:00");
+        TimerLabel.setBackground(new java.awt.Color(255, 255, 255));
+        TimerLabel.setFont(new java.awt.Font("굴림", 1, 18)); // NOI18N
+        TimerLabel.setForeground(new java.awt.Color(255, 102, 102));
+        TimerLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TimerLabel.setText("00분 00초");
+        GameLabelPanel.add(TimerLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 2, 90, 40));
 
-        javax.swing.GroupLayout GameLabelPanelLayout = new javax.swing.GroupLayout(GameLabelPanel);
-        GameLabelPanel.setLayout(GameLabelPanelLayout);
-        GameLabelPanelLayout.setHorizontalGroup(
-            GameLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(GameLabelPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(GameName, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 595, Short.MAX_VALUE)
-                .addComponent(TimerLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        GameLabelPanelLayout.setVerticalGroup(
-            GameLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, GameLabelPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(GameLabelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(GameName)
-                    .addComponent(TimerLabel))
-                .addContainerGap())
-        );
+        InputButtonValue.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
+        InputButtonValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        InputButtonValue.setText("1를 누르세요");
+        GameLabelPanel.add(InputButtonValue, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 8, 280, 30));
 
-        getContentPane().add(GameLabelPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 810, 30));
+        getContentPane().add(GameLabelPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 810, 40));
 
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        gameStartButton.setBackground(new java.awt.Color(213, 89, 91));
+        gameStartButton.setFont(new java.awt.Font("굴림", 1, 24)); // NOI18N
+        gameStartButton.setForeground(new java.awt.Color(255, 255, 255));
         gameStartButton.setText("게임 시작");
         gameStartButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 gameStartButtonActionPerformed(evt);
             }
         });
+        jPanel3.add(gameStartButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 170, 97));
 
-        CountNum.setFont(new java.awt.Font("굴림", 1, 36)); // NOI18N
+        CountNum.setFont(new java.awt.Font("굴림", 1, 200)); // NOI18N
+        CountNum.setForeground(new java.awt.Color(255, 153, 153));
         CountNum.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CountNum.setText("3");
+        jPanel3.add(CountNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(274, 105, 256, 252));
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(310, 310, 310)
-                        .addComponent(gameStartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(318, 318, 318)
-                        .addComponent(CountNum, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(409, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(91, 91, 91)
-                .addComponent(CountNum, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(100, 100, 100)
-                .addComponent(gameStartButton, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(183, Short.MAX_VALUE))
-        );
+        tipLabel.setFont(new java.awt.Font("굴림", 1, 14)); // NOI18N
+        tipLabel.setForeground(new java.awt.Color(255, 51, 0));
+        tipLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        tipLabel.setText("TIP : 최대한 빠른 시간내 1부터 50까지 누르세요!");
+        jPanel3.add(tipLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 340, 570, 40));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 810, 510));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 60, 800, 510));
 
-        GamePanel.setBackground(new java.awt.Color(102, 102, 255));
+        GamePanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout GamePanelLayout = new javax.swing.GroupLayout(GamePanel);
         GamePanel.setLayout(GamePanelLayout);
         GamePanelLayout.setHorizontalGroup(
             GamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 810, Short.MAX_VALUE)
+            .addGap(0, 788, Short.MAX_VALUE)
         );
         GamePanelLayout.setVerticalGroup(
             GamePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 510, Short.MAX_VALUE)
+            .addGap(0, 488, Short.MAX_VALUE)
         );
 
-        getContentPane().add(GamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 810, 510));
+        getContentPane().add(GamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 70, 790, 490));
 
         setSize(new java.awt.Dimension(1100, 570));
         setLocationRelativeTo(null);
@@ -430,12 +424,15 @@ public class oneTo50 extends javax.swing.JFrame {
     private void gameStartButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gameStartButtonActionPerformed
         // TODO add your handling code here:
         gameStartButton.setVisible(false);
+        tipLabel.setVisible(false);
         gameStart();
     }//GEN-LAST:event_gameStartButtonActionPerformed
     public void restart() {
-        this.dispose();
+        t.cancel();
+        gameTimer.cancel();
         oneTo50 ng = new oneTo50();
         ng.setVisible(true);
+        this.dispose();
     }
     private void RestartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RestartActionPerformed
         // TODO add your handling code here:
@@ -447,17 +444,19 @@ public class oneTo50 extends javax.swing.JFrame {
                if(buttons[ButtonX][ButtonY].getText().equals(String.valueOf(StartNum))) {
                 System.out.println(StartNum);
                 System.out.println("값 맞음");
+                Border idBorder = BorderFactory.createMatteBorder(1, 1, 1, 20, new Color(255,153,153));
+                buttons[ButtonX][ButtonY].setBorder(idBorder);
                 StartNum++;
                 if(count2<25) { //25까지 눌렀을시 변경
                 buttons[ButtonX][ButtonY].setText(String.valueOf(num2[count2]));
-                   buttons[ButtonX][ButtonY].setBackground(Color.white);
                 count2++;
                 } else {     // 숫자 26부터 클릭시 변경          
-                 buttons[ButtonX][ButtonY].setText("클리어");
-                 buttons[ButtonX][ButtonY].setBackground(Color.black);
-                 buttons[ButtonX][ButtonY].setForeground(Color.red);
+                 buttons[ButtonX][ButtonY].setText("");
+                 buttons[ButtonX][ButtonY].setBackground(new Color(255,153,153));
               //   buttons[ButtonX][ButtonY].setBorder(new Border(1,1,1));
                 }
+                InputButtonValue.setVisible(true);
+                InputButtonValue.setText(StartNum + "를 누르세요");
                 check();
                }
               //  System.out.println("카운트");
@@ -465,7 +464,7 @@ public class oneTo50 extends javax.swing.JFrame {
         }
     
     public void check() {
-        if(StartNum == 3) {
+        if(StartNum == 51) {
             win();
         }
     }
@@ -478,6 +477,7 @@ public class oneTo50 extends javax.swing.JFrame {
     }
     private void gameStart() {
          CountDown();
+         
     }
     private void CountDown () {
           CountNum.setVisible(true);
@@ -494,9 +494,8 @@ public class oneTo50 extends javax.swing.JFrame {
     }
     private void gameTimer () {      
           gameTimerCount gtc = new gameTimerCount();
-          gameTimer.scheduleAtFixedRate(gtc, 1000, 1000);
-      
-                 
+          gameTimer.scheduleAtFixedRate(gtc, 10, 1000);
+                       
     }
      class gameTimerCount extends TimerTask {
 
@@ -521,9 +520,10 @@ public class oneTo50 extends javax.swing.JFrame {
                 CountNum.setText(Integer.toString(a));
                 repaint();
             } else {
-              CountNum.setVisible(false);
+              CountNum.setVisible(false);              
               t.cancel(); // 타이머 종료
               TimerLabel.setVisible(true); // 우측 상단 타이머 표시
+              InputButtonValue.setVisible(true);
               makeMap(); // 맵을 불러옴
             }
         }
@@ -564,8 +564,11 @@ public class oneTo50 extends javax.swing.JFrame {
                 buttons[i][j] = new JButton("");
                 GamePanel.add(buttons[i][j]);
                 buttons[i][j].setText(String.valueOf(num[count])); // num[]값을 buttons[][]값에 넣기
-                
-                 buttons[i][j].addActionListener(new java.awt.event.ActionListener() { // 액션 리스너
+                buttons[i][j].setFont(new Font("굴림",Font.BOLD,15));
+                Border idBorder = BorderFactory.createMatteBorder(1, 1, 1, 20, new Color(51,204,255));
+                buttons[i][j].setBorder(idBorder);
+                buttons[i][j].setBackground(Color.white);
+                buttons[i][j].addActionListener(new java.awt.event.ActionListener() { // 액션 리스너
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                   ButtonX = tempI;
                   ButtonY = tempY;
@@ -757,6 +760,7 @@ public class oneTo50 extends javax.swing.JFrame {
     private javax.swing.JPanel GameLabelPanel;
     private javax.swing.JLabel GameName;
     private javax.swing.JPanel GamePanel;
+    private javax.swing.JLabel InputButtonValue;
     private javax.swing.JLabel Minimize;
     private javax.swing.JLabel NickNameLabel;
     private javax.swing.JButton RankButton;
@@ -768,5 +772,6 @@ public class oneTo50 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel pointLabel;
+    private javax.swing.JLabel tipLabel;
     // End of variables declaration//GEN-END:variables
 }
